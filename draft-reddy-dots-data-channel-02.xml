@@ -248,8 +248,8 @@
       convey request parameters and response information such as errors. This
       specification uses the encoding rules defined in <xref
       target="RFC7951"></xref> for representing DOTS data channel
-      configuration data using YANG-defined data in <xref
-      target="YANG"></xref> as JSON text.</t>
+      configuration data using YANG (<xref target="YANG"></xref>) as JSON
+      text.</t>
 
       <t>All data channel URIs defined in this document, and in subsequent
       documents, MUST NOT have a URI containing "/DOTS-signal".</t>
@@ -526,7 +526,7 @@
   Content-Format: "application/yang.api+json"
   {
    "identifier": {
-     "policy-id": "number"
+     "policy-id": "integer"
    }
   }
 ]]></artwork>
@@ -560,7 +560,7 @@
   Content-Format: "application/yang.api+json"
   {
    "identifier": {
-     "policy-id": "number"
+     "policy-id": "integer"
    }
   }
   ]]></artwork>
