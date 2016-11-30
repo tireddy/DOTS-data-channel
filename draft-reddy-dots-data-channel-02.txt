@@ -320,6 +320,7 @@ Internet-Draft              DOTS Data Channel              November 2016
                                    it represents a single port.";
                       leaf lower-port {
                          type inet:port-number;
+                         mandatory true;
                          description "lower port";
                       }
                       leaf upper-port {
@@ -329,7 +330,6 @@ Internet-Draft              DOTS Data Channel              November 2016
                            "The upper-port must be greater than or
                             equal to lower-port";
                          }
-                         description "upper port";
 
 
 
@@ -338,6 +338,7 @@ Reddy, et al.             Expires June 3, 2017                  [Page 6]
 Internet-Draft              DOTS Data Channel              November 2016
 
 
+                         description "upper port";
                       }
                    }
                    leaf-list traffic-protocol {
@@ -385,7 +386,6 @@ Internet-Draft              DOTS Data Channel              November 2016
    identifiers may then be used in subsequent DOTS signal channel
    exchanges to refer more efficiently to the resources under attack
    (Figure 3).
-
 
 
 

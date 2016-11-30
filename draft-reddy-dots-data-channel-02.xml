@@ -334,6 +334,7 @@
                                    it represents a single port.";
                       leaf lower-port {
                          type inet:port-number;
+                         mandatory true; 
                          description "lower port";
                       }
                       leaf upper-port {
