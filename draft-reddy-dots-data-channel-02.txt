@@ -89,7 +89,7 @@ Table of Contents
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -290,7 +290,7 @@ Internet-Draft              DOTS Data Channel              November 2016
 
      revision 2016-11-28 {
        reference
-       "https://tools.ietf.org/html/draft-reddy-dots-channel";
+       "https://tools.ietf.org/html/draft-reddy-dots-data-channel";
      }
 
      container identifier {
@@ -316,7 +316,8 @@ Internet-Draft              DOTS Data Channel              November 2016
                    }
                    list port-range {
                       key "lower-port upper-port";
-                      description "port range";
+                      description "Port range. When only lower-port is present,
+                                   it represents a single port.";
                       leaf lower-port {
                          type inet:port-number;
                          description "lower port";
@@ -329,7 +330,6 @@ Internet-Draft              DOTS Data Channel              November 2016
                             equal to lower-port";
                          }
                          description "upper port";
-                      }
 
 
 
@@ -338,6 +338,7 @@ Reddy, et al.             Expires June 2, 2017                  [Page 6]
 Internet-Draft              DOTS Data Channel              November 2016
 
 
+                      }
                    }
                    leaf-list traffic-protocol {
                       type uint8;
@@ -384,7 +385,6 @@ Internet-Draft              DOTS Data Channel              November 2016
    identifiers may then be used in subsequent DOTS signal channel
    exchanges to refer more efficiently to the resources under attack
    (Figure 3).
-
 
 
 
@@ -517,8 +517,8 @@ Internet-Draft              DOTS Data Channel              November 2016
                "traffic-protocol": 6,
                "ip": ["2002:db8:6401::1, 2002:db8:6401::2"],
                "port-range": [
-                   { "lower-port": 443,
-                     "upper-port": 443
+                   {
+                      "lower-port": 443
                    }
                 ]
              }
@@ -547,13 +547,13 @@ Internet-Draft              DOTS Data Channel              November 2016
   DELETE https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/identifier
   Content-Format: "application/yang.api+json"
   {
+   "identifier": {
      "policy-id": "number"
+   }
   }
 
                         Figure 5: DELETE identifier
 
-   If the DOTS server does not find the policy number conveyed in the
-   DELETE request in its policy state data, then it responds with a 404
 
 
 
@@ -562,6 +562,8 @@ Reddy, et al.             Expires June 2, 2017                 [Page 10]
 Internet-Draft              DOTS Data Channel              November 2016
 
 
+   If the DOTS server does not find the policy number conveyed in the
+   DELETE request in its policy state data, then it responds with a 404
    (Not Found) error response code.  The DOTS server successfully
    acknowledges a DOTS client's request to remove the identifier using
    202 (Deleted) error response code.
@@ -575,23 +577,21 @@ Internet-Draft              DOTS Data Channel              November 2016
    instantiated by the DOTS client while Figure 7 shows how to retrieve
    a specific identifier.
 
-     GET https://{scheme}://{host}:{port}/.well-known/{version}/
-     DOTS-data-channel/identifier
+  GET https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/identifier
 
           Figure 6: GET to retrieve all the installed identifiers
 
-     GET https://{scheme}://{host}:{port}/.well-known/{version}/
-     DOTS-data-channel/{policy-id value}
+  GET https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/
+  Content-Format: "application/yang.api+json"
+  {
+   "identifier": {
+     "policy-id": "number"
+   }
+  }
 
              Figure 7: GET to retrieve the specific identifier
 
    Figure 8 shows response for all identifiers on the DOTS server.
-
-
-
-
-
-
 
 
 
@@ -628,8 +628,8 @@ Internet-Draft              DOTS Data Channel              November 2016
                   "traffic-protocol": 6,
                   "ip": ["2002:db8:6401::1, 2002:db8:6401::2"],
                   "port-range": [
-                      { "lower-port": 443,
-                        "upper-port": 443
+                      {
+                         "lower-port": 443
                       }
                    ]
                 }
@@ -643,8 +643,8 @@ Internet-Draft              DOTS Data Channel              November 2016
                   "traffic-protocol": 6,
                   "ip": ["2002:db8:6401::10, 2002:db8:6401::20"],
                   "port-range": [
-                      { "lower-port": 80,
-                        "upper-port": 80
+                      {
+                          "lower-port": 80
                       }
                    ]
                 }
@@ -806,9 +806,13 @@ Internet-Draft              DOTS Data Channel              November 2016
   DELETE {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
-    "acl": {
-     "acl-name": "string",
-     "acl-type": "string"
+    "access-lists": {
+      "acl": [
+          {
+               "acl-name": "string",
+               "acl-type": "string",
+          }
+      ]
     }
   }
 
@@ -831,10 +835,6 @@ Internet-Draft              DOTS Data Channel              November 2016
    the DOTS client while Figure 13 shows how to retrieve specific
    filtering rules programmed by the DOTS client.
 
-  GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter/
-
-            Figure 12: GET to retrieve the filtering rules (1)
-
 
 
 Reddy, et al.             Expires June 2, 2017                 [Page 15]
@@ -842,8 +842,22 @@ Reddy, et al.             Expires June 2, 2017                 [Page 15]
 Internet-Draft              DOTS Data Channel              November 2016
 
 
-   GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/
-   filter/{acl-name value}/{acl-type value}
+  GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
+
+            Figure 12: GET to retrieve the filtering rules (1)
+
+  GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
+  Content-Format: "application/yang.api+json"
+  {
+    "access-lists": {
+      "acl": [
+          {
+               "acl-name": "string",
+               "acl-type": "string",
+          }
+      ]
+    }
+  }
 
             Figure 13: GET to retrieve the filtering rules (2)
 
@@ -875,6 +889,15 @@ Internet-Draft              DOTS Data Channel              November 2016
    in the application receiving bogus data, but it will constitute a DoS
    on the connection.  This attack can be countered by using TCP-AO
    [RFC5925].  If TCP-AO is used, then any bogus packets injected by an
+
+
+
+
+Reddy, et al.             Expires June 2, 2017                 [Page 16]
+
+Internet-Draft              DOTS Data Channel              November 2016
+
+
    attacker will be rejected by the TCP-AO integrity check and therefore
    will never reach the TLS layer.
 
@@ -890,13 +913,6 @@ Internet-Draft              DOTS Data Channel              November 2016
    deleting filtering rules.  Nevertheless, attacks can be initiated
    from within the trusted domain if an entity has been corrupted.
    Adequate means to monitor trusted nodes should also be enabled.
-
-
-
-Reddy, et al.             Expires June 2, 2017                 [Page 16]
-
-Internet-Draft              DOTS Data Channel              November 2016
-
 
 6.  Acknowledgements
 
@@ -929,6 +945,15 @@ Internet-Draft              DOTS Data Channel              November 2016
               DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
 
+
+
+
+
+Reddy, et al.             Expires June 2, 2017                 [Page 17]
+
+Internet-Draft              DOTS Data Channel              November 2016
+
+
    [RFC5925]  Touch, J., Mankin, A., and R. Bonica, "The TCP
               Authentication Option", RFC 5925, DOI 10.17487/RFC5925,
               June 2010, <http://www.rfc-editor.org/info/rfc5925>.
@@ -942,17 +967,6 @@ Internet-Draft              DOTS Data Channel              November 2016
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <http://www.rfc-editor.org/info/rfc7951>.
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 2, 2017                 [Page 17]
-
-Internet-Draft              DOTS Data Channel              November 2016
-
 
 7.2.  Informative References
 
@@ -988,6 +1002,14 @@ Internet-Draft              DOTS Data Channel              November 2016
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
 
+
+
+
+Reddy, et al.             Expires June 2, 2017                 [Page 18]
+
+Internet-Draft              DOTS Data Channel              November 2016
+
+
 Authors' Addresses
 
    Tirumaleswar Reddy
@@ -998,16 +1020,6 @@ Authors' Addresses
    India
 
    Email: tireddy@cisco.com
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 2, 2017                 [Page 18]
-
-Internet-Draft              DOTS Data Channel              November 2016
 
 
    Mohamed Boucadair
@@ -1040,18 +1052,6 @@ Internet-Draft              DOTS Data Channel              November 2016
    Cisco Systems, Inc.
 
    Email: praspati@cisco.com
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
