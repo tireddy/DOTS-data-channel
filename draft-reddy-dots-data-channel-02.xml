@@ -537,7 +537,7 @@
           the DELETE request in its policy state data, then it responds with a
           404 (Not Found) error response code. The DOTS server successfully
           acknowledges a DOTS client's request to remove the identifier using
-          202 (Deleted) error response code.</t>
+          204 (No Content) in the response.</t>
         </section>
 
         <section title="Retrieving Installed Identifiers">
@@ -759,8 +759,8 @@
           the DELETE request in its policy state data, then it responds with a
           404 (Not Found) error response code. The DOTS server successfully
           acknowledges a DOTS client's request to withdraw the filtering rules
-          using 202 (Deleted) response code, and removes the filtering rules
-          as soon as possible.</t>
+          using 204 (No Content) response code, and removes the filtering
+          rules as soon as possible.</t>
         </section>
 
         <section title="Retrieving Installed Filtering Rules  ">
