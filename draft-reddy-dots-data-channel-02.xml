@@ -269,6 +269,10 @@
           may then be used in subsequent DOTS signal channel exchanges to
           refer more efficiently to the resources under attack.</t>
 
+          <t>This document defines the YANG module
+          "ietf-dots-data-channel-identifier", which has the following
+          structure:</t>
+
           <t><figure>
               <artwork><![CDATA[module: ietf-dots-data-channel-identifier
     +--rw identifier
@@ -289,7 +293,9 @@
 
         <section title="Identifier Model">
           <t><figure>
-              <artwork><![CDATA[module ietf-dots-data-channel-identifier {
+              <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-data-channel-identifier@2016-11-28.yang"
+
+module ietf-dots-data-channel-identifier {
       namespace "urn:ietf:params:xml:ns:yang:ietf-dots-data-channel-identifier";
       prefix "alias";
       import ietf-inet-types {
@@ -365,7 +371,9 @@
                    }
               }
      }
-  }]]></artwork>
+  }
+ <CODE ENDS>
+]]></artwork>
             </figure></t>
         </section>
 
@@ -810,6 +818,12 @@
       https://tools.ietf.org/html/rfc7519#section-10, and create JSON DOTS
       claim registry and register the JSON attributes defined in this
       specification].</t>
+    </section>
+
+    <section anchor="contr" title="Contributors">
+      <t>The following individuals have contributed to this document:</t>
+
+      <t>Dan Wing Email: dwing-ietf@fuggles.com </t>
     </section>
 
     <section anchor="security" title="Security Considerations">

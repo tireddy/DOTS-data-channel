@@ -5,14 +5,14 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                            M. Boucadair
-Expires: June 4, 2017                                             Orange
+Expires: June 6, 2017                                             Orange
                                                             K. Nishizuka
                                                       NTT Communications
                                                                   L. Xia
                                                                   Huawei
                                                                 P. Patil
                                                                    Cisco
-                                                        December 1, 2016
+                                                        December 3, 2016
 
 
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Data Channel
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 4, 2017.
+   This Internet-Draft will expire on June 6, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires June 4, 2017                  [Page 1]
+Reddy, et al.             Expires June 6, 2017                  [Page 1]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -75,8 +75,8 @@ Table of Contents
        3.1.1.  Identifier Model structure  . . . . . . . . . . . . .   5
        3.1.2.  Identifier Model  . . . . . . . . . . . . . . . . . .   5
        3.1.3.  Filter Model and structure  . . . . . . . . . . . . .   7
-     3.2.  Identifiers . . . . . . . . . . . . . . . . . . . . . . .   7
-       3.2.1.  Create Identifiers  . . . . . . . . . . . . . . . . .   7
+     3.2.  Identifiers . . . . . . . . . . . . . . . . . . . . . . .   8
+       3.2.1.  Create Identifiers  . . . . . . . . . . . . . . . . .   8
        3.2.2.  Delete Identifiers  . . . . . . . . . . . . . . . . .  10
        3.2.3.  Retrieving Installed Identifiers  . . . . . . . . . .  11
      3.3.  Filtering Rules . . . . . . . . . . . . . . . . . . . . .  12
@@ -84,11 +84,12 @@ Table of Contents
        3.3.2.  Remove Filtering Rules  . . . . . . . . . . . . . . .  15
        3.3.3.  Retrieving Installed Filtering Rules  . . . . . . . .  15
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  18
+   5.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  16
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
@@ -105,15 +106,15 @@ Table of Contents
    signal channel used to convey that a network is under a DDOS attack
    to an upstream DOTS server so that appropriate mitigation actions are
    undertaken on the suspect traffic is further elaborated in
-   [I-D.reddy-dots-signal-channel].  The DOTS data channel is used for
 
 
 
-Reddy, et al.             Expires June 4, 2017                  [Page 2]
+Reddy, et al.             Expires June 6, 2017                  [Page 2]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
+   [I-D.reddy-dots-signal-channel].  The DOTS data channel is used for
    infrequent bulk data exchange between DOTS agents in the aim to
    significantly augment attack response coordination.
 
@@ -161,15 +162,15 @@ Internet-Draft              DOTS Data Channel              December 2016
           prefixes it wants to refer to by alias when requesting
           mitigation, to which the server would respond with a success
           status and the new prefix group alias, or an error status and
-          message in the event the DOTS client's data channel request
 
 
 
-Reddy, et al.             Expires June 4, 2017                  [Page 3]
+Reddy, et al.             Expires June 6, 2017                  [Page 3]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
+          message in the event the DOTS client's data channel request
           failed (see requirement OP-006 in [I-D.ietf-dots-requirements]
           and Section 2 in [I-D.ietf-dots-architecture]).
 
@@ -217,15 +218,15 @@ Internet-Draft              DOTS Data Channel              December 2016
    JavaScript Object Notation (JSON) [RFC7159] payloads is used to
    convey DOTS signal channel session configuration, filtering rules as
    well as data channel specific payload messages that convey request
-   parameters and response information such as errors.  This
 
 
 
-Reddy, et al.             Expires June 4, 2017                  [Page 4]
+Reddy, et al.             Expires June 6, 2017                  [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
+   parameters and response information such as errors.  This
    specification uses the encoding rules defined in [RFC7951] for
    representing DOTS data channel configuration data using YANG
    (Section 3.1) as JSON text.
@@ -250,6 +251,9 @@ Internet-Draft              DOTS Data Channel              December 2016
    subsequent DOTS signal channel exchanges to refer more efficiently to
    the resources under attack.
 
+   This document defines the YANG module "ietf-dots-data-channel-
+   identifier", which has the following structure:
+
    module: ietf-dots-data-channel-identifier
        +--rw identifier
           +--rw policy-id?   int32
@@ -267,21 +271,23 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 3.1.2.  Identifier Model
 
+<CODE BEGINS> file "ietf-dots-data-channel-identifier@2016-11-28.yang"
+
 module ietf-dots-data-channel-identifier {
+
+
+
+Reddy, et al.             Expires June 6, 2017                  [Page 5]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
       namespace "urn:ietf:params:xml:ns:yang:ietf-dots-data-channel-identifier";
       prefix "alias";
       import ietf-inet-types {
           prefix "inet";
       }
      organization "Cisco Systems, Inc.";
-
-
-
-Reddy, et al.             Expires June 4, 2017                  [Page 5]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
      contact "Tirumaleswar Reddy <tireddy@cisco.com>";
 
      description
@@ -324,20 +330,20 @@ Internet-Draft              DOTS Data Channel              December 2016
                          description "lower port";
                       }
                       leaf upper-port {
+
+
+
+Reddy, et al.             Expires June 6, 2017                  [Page 6]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
                          type inet:port-number;
                          must ". >= ../lower-port" {
                            error-message
                            "The upper-port must be greater than or
                             equal to lower-port";
                          }
-
-
-
-Reddy, et al.             Expires June 4, 2017                  [Page 6]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
                          description "upper port";
                       }
                    }
@@ -360,6 +366,7 @@ Internet-Draft              DOTS Data Channel              December 2016
               }
      }
   }
+ <CODE ENDS>
 
 3.1.3.  Filter Model and structure
 
@@ -377,6 +384,16 @@ Internet-Draft              DOTS Data Channel              December 2016
    o  Filter management, which enables a DOTS client to install or
       remove traffic filters dropping or rate-limiting unwanted traffic.
 
+
+
+
+
+
+Reddy, et al.             Expires June 6, 2017                  [Page 7]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
 3.2.  Identifiers
 
 3.2.1.  Create Identifiers
@@ -386,13 +403,6 @@ Internet-Draft              DOTS Data Channel              December 2016
    identifiers may then be used in subsequent DOTS signal channel
    exchanges to refer more efficiently to the resources under attack
    (Figure 3).
-
-
-
-Reddy, et al.             Expires June 4, 2017                  [Page 7]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
 
    POST {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/identifier
    Content-Format: "application/yang.api+json"
@@ -431,6 +441,15 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    The header parameters are described below:
 
+
+
+
+
+Reddy, et al.             Expires June 6, 2017                  [Page 8]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
    policy-id:  Identifier of the policy represented using an integer.
       This identifier MUST be unique for each policy bound to the DOTS
       client, i.e., the policy-id needs to be unique relative to the
@@ -440,15 +459,6 @@ Internet-Draft              DOTS Data Channel              December 2016
       mandatory attribute.
 
    alias-name:  Name of the alias.  This is a mandatory attribute.
-
-
-
-
-
-Reddy, et al.             Expires June 4, 2017                  [Page 8]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
 
    traffic-protocol:   Internet Protocol numbers.  This is an optional
       attribute.
@@ -491,17 +501,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 4, 2017                  [Page 9]
+Reddy, et al.             Expires June 6, 2017                  [Page 9]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -557,7 +557,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 4, 2017                 [Page 10]
+Reddy, et al.             Expires June 6, 2017                 [Page 10]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -613,7 +613,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 4, 2017                 [Page 11]
+Reddy, et al.             Expires June 6, 2017                 [Page 11]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -669,7 +669,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 4, 2017                 [Page 12]
+Reddy, et al.             Expires June 6, 2017                 [Page 12]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -725,7 +725,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 4, 2017                 [Page 13]
+Reddy, et al.             Expires June 6, 2017                 [Page 13]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -781,7 +781,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 4, 2017                 [Page 14]
+Reddy, et al.             Expires June 6, 2017                 [Page 14]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -837,7 +837,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 4, 2017                 [Page 15]
+Reddy, et al.             Expires June 6, 2017                 [Page 15]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -874,7 +874,13 @@ Internet-Draft              DOTS Data Channel              December 2016
    claim registry and register the JSON attributes defined in this
    specification].
 
-5.  Security Considerations
+5.  Contributors
+
+   The following individuals have contributed to this document:
+
+   Dan Wing Email: dwing-ietf@fuggles.com
+
+6.  Security Considerations
 
    Authenticated encryption MUST be used for data confidentiality and
    message integrity.  TLS based on client certificate MUST be used for
@@ -883,21 +889,21 @@ Internet-Draft              DOTS Data Channel              December 2016
    confidentiality protection and the guidance given in [RFC7525] MUST
    be followed to avoid attacks on TLS.
 
+
+
+
+
+Reddy, et al.             Expires June 6, 2017                 [Page 16]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
    An attacker may be able to inject RST packets, bogus application
    segments, etc., regardless of whether TLS authentication is used.
    Because the application data is TLS protected, this will not result
    in the application receiving bogus data, but it will constitute a DoS
    on the connection.  This attack can be countered by using TCP-AO
    [RFC5925].  If TCP-AO is used, then any bogus packets injected by an
-
-
-
-
-Reddy, et al.             Expires June 4, 2017                 [Page 16]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
    attacker will be rejected by the TCP-AO integrity check and therefore
    will never reach the TLS layer.
 
@@ -914,14 +920,14 @@ Internet-Draft              DOTS Data Channel              December 2016
    from within the trusted domain if an entity has been corrupted.
    Adequate means to monitor trusted nodes should also be enabled.
 
-6.  Acknowledgements
+7.  Acknowledgements
 
    Thanks to Christian Jacquenet, Roland Dobbins, Andrew Mortensen,
    Roman Danyliw, and Gilbert Clark for the discussion and comments.
 
-7.  References
+8.  References
 
-7.1.  Normative References
+8.1.  Normative References
 
    [I-D.ietf-dots-architecture]
               Mortensen, A., Andreasen, F., Reddy, T.,
@@ -940,19 +946,18 @@ Internet-Draft              DOTS Data Channel              December 2016
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+Reddy, et al.             Expires June 6, 2017                 [Page 17]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
-
-
-
-
-
-Reddy, et al.             Expires June 4, 2017                 [Page 17]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
 
    [RFC5925]  Touch, J., Mankin, A., and R. Bonica, "The TCP
               Authentication Option", RFC 5925, DOI 10.17487/RFC5925,
@@ -968,7 +973,7 @@ Internet-Draft              DOTS Data Channel              December 2016
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <http://www.rfc-editor.org/info/rfc7951>.
 
-7.2.  Informative References
+8.2.  Informative References
 
    [I-D.ietf-dots-requirements]
               Mortensen, A., Moskowitz, R., and T. Reddy, "Distributed
@@ -998,17 +1003,16 @@ Internet-Draft              DOTS Data Channel              December 2016
               DOI 10.17487/RFC6020, October 2010,
               <http://www.rfc-editor.org/info/rfc6020>.
 
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <http://www.rfc-editor.org/info/rfc7159>.
 
 
-
-
-Reddy, et al.             Expires June 4, 2017                 [Page 18]
+Reddy, et al.             Expires June 6, 2017                 [Page 18]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
+
+   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
+              2014, <http://www.rfc-editor.org/info/rfc7159>.
 
 Authors' Addresses
 
@@ -1057,8 +1061,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Reddy, et al.             Expires June 4, 2017                 [Page 19]
+Reddy, et al.             Expires June 6, 2017                 [Page 19]
