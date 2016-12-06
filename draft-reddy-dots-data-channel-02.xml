@@ -407,38 +407,43 @@ module ietf-dots-data-channel-identifier {
           (<xref target="Figure1"></xref>).</t>
 
           <t><figure anchor="Figure1" title="POST to create identifiers">
-              <artwork align="left"><![CDATA[   POST {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/identifier
-   Content-Format: "application/yang.api+json"
-   {
-    identifier: {
-     "policy-id": "integer",
-     "alias": [ 
-            { 
-               "alias-name" : string,
-               "traffic-protocol": [integer],
-               "ip": ["string"],
-               "prefix": ["string"],
-               "port-range": [
-                   { "lower-port": integer, 
-                     "upper-port": integer
-                   }
-                ],
-             },
-             {
-               "alias-name" : string,
-               "FQDN": ["string"]
-             },  
-             {
-               "alias-name" : string,
-               "URI": ["string"]
-             },  
-             {
-               "alias-name" : string,
-               "E.164": ["string"]
-             }
-     ] 
-    }
-   }
+              <artwork align="left"><![CDATA[ POST {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/id
+ Content-Format: "application/yang.api+json"
+ {
+  "ietf-dots-data-channel-identifier:identifier": {
+    "policy-id": integer,
+    "alias": [
+      {
+        "alias-name": "string",
+        "ip": [
+          "string"
+        ],
+        "prefix": [
+          "string"
+        ],
+        "port-range": [
+          {
+            "lower-port": integer,
+            "upper-port": integer
+          }
+        ],
+        "traffic-protocol": [
+          integer
+        ],
+        "FQDN": [
+          "string"
+        ],
+        "URI": [
+          "string"
+        ],
+        "E.164": [
+          "string"
+        ]
+      }
+    ]
+  }
+}
+
 ]]></artwork>
             </figure></t>
 
@@ -491,25 +496,30 @@ module ietf-dots-data-channel-identifier {
           2002:db8:6401::1 and 2002:db8:6401::2 listening on port 443.</t>
 
           <t><figure anchor="Figure2" title="POST to create identifiers">
-              <artwork align="left"><![CDATA[  POST https://www.example.com/.well-known/v1/DOTS-data-channel/identifier
-  Content-Format: "application/yang.api+json"
-  {
-   identifier: {
-     "policy-id": 123321333242,
-     "alias": [ 
-            { 
-               "alias-name" : "Server1",
-               "traffic-protocol": 6,
-               "ip": ["2002:db8:6401::1, 2002:db8:6401::2"],
-               "port-range": [
-                   { 
-                      "lower-port": 443
-                   }
-                ]
-             }
-     ]    
-    }
-   }
+              <artwork align="left"><![CDATA[POST https://www.example.com/.well-known/v1/DOTS-data-channel/id
+Content-Format: "application/yang.api+json"
+{
+  "ietf-dots-data-channel-identifier:identifier": {
+    "policy-id": 123321333242,
+    "alias": [
+      {
+        "alias-name": "Server1",
+        "traffic-protocol": [
+          6
+        ],
+        "ip": [
+          "2002:db8:6401::1",
+          "2002:db8:6401::2"
+        ],
+        "port-range": [
+          {
+            "lower-port": 443
+          }
+        ]
+      }
+    ]
+  }
+}
 ]]></artwork>
             </figure></t>
 
@@ -531,11 +541,11 @@ module ietf-dots-data-channel-identifier {
           DOTS server (<xref target="Figure3"></xref>).</t>
 
           <figure anchor="Figure3" title="DELETE identifier">
-            <artwork align="left"><![CDATA[  DELETE https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/identifier
+            <artwork align="left"><![CDATA[  DELETE https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/id
   Content-Format: "application/yang.api+json"
   {
-   "identifier": {
-     "policy-id": "integer"
+    "ietf-dots-data-channel-identifier:identifier": {
+    "policy-id": integer
    }
   }
 ]]></artwork>
@@ -559,17 +569,17 @@ module ietf-dots-data-channel-identifier {
 
           <figure anchor="Figure4"
                   title="GET to retrieve all the installed identifiers">
-            <artwork align="left"><![CDATA[  GET https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/identifier
+            <artwork align="left"><![CDATA[  GET https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/id
  ]]></artwork>
           </figure>
 
           <figure anchor="Figure5"
                   title="GET to retrieve the specific identifier">
-            <artwork align="left"><![CDATA[  GET https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/
+            <artwork align="left"><![CDATA[  GET https://{scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/id
   Content-Format: "application/yang.api+json"
   {
-   "identifier": {
-     "policy-id": "integer"
+   "ietf-dots-data-channel-identifier:identifier": {
+     "policy-id": integer
    }
   }
   ]]></artwork>
@@ -580,39 +590,50 @@ module ietf-dots-data-channel-identifier {
 
           <t><figure anchor="Figure6" title="Response body">
               <artwork align="left"><![CDATA[{
-  "identifier":{
-    {
-      "policy-id": 1234534333242 
-      "alias": [ 
-            { 
-               "alias-name" : "Server1",
-               "traffic-protocol": 6,
-               "ip": ["2002:db8:6401::1, 2002:db8:6401::2"],
-               "port-range": [
-                   { 
-                      "lower-port": 443
-                   }
-                ]
-             }
-       ]
-    },
-    {
-      "policy-id": 1233213344443
-      "alias": [ 
-            { 
-               "alias-name" : "Server2",
-               "traffic-protocol": 6,
-               "ip": ["2002:db8:6401::10, 2002:db8:6401::20"],
-               "port-range": [
-                   { 
-                       "lower-port": 80
-                   }
-                ]
-             }
-       ]
-    }
- }
-}]]></artwork>
+ "ietf-dots-data-channel-identifier:identifier": [
+  {
+   "policy-id": 1234534333242,
+    "alias": [
+      {
+        "alias-name": "Server1",
+        "traffic-protocol": [
+          6
+        ],
+        "ip": [
+          "2002:db8:6401::1",
+          "2002:db8:6401::2"
+        ],
+        "port-range": [
+          {
+            "lower-port": 443
+          }
+        ]
+      }
+    ]
+  },
+  { 
+    "policy-id": 1233213344443,
+    "alias": [
+      {
+        "alias-name": "Server2",
+        "traffic-protocol": [
+          6
+        ], 
+        "ip": [
+          "2002:db8:6401::10",
+          "2002:db8:6401::20"
+        ],
+        "port-range": [
+          {
+            "lower-port": 80
+          }
+        ]
+      }
+    ]
+  }
+ ]
+}
+]]></artwork>
             </figure></t>
 
           <t>If the DOTS server does not find the policy number conveyed in
@@ -649,7 +670,7 @@ module ietf-dots-data-channel-identifier {
               <artwork align="left"><![CDATA[  POST {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
-   "access-lists": {
+   "ietf-access-control-list:access-lists": {
       "acl": [
           { 
                "acl-name": "string",
@@ -705,7 +726,7 @@ module ietf-dots-data-channel-identifier {
   POST https://www.example.com/.well-known/v1/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
-   "access-lists": {
+   "ietf-access-control-list:access-lists": {
       "acl": [
           { 
                "acl-name": "sample-ipv4-acl",
@@ -751,7 +772,7 @@ module ietf-dots-data-channel-identifier {
             <artwork align="left"><![CDATA[  DELETE {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
-    "access-lists": {
+    "ietf-access-control-list:access-lists": {
       "acl": [
           { 
                "acl-name": "string",
@@ -792,7 +813,7 @@ module ietf-dots-data-channel-identifier {
             <artwork align="left"><![CDATA[  GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
-    "access-lists": {
+    "ietf-access-control-list:access-lists": {
       "acl": [
           { 
                "acl-name": "string",
@@ -823,7 +844,7 @@ module ietf-dots-data-channel-identifier {
     <section anchor="contr" title="Contributors">
       <t>The following individuals have contributed to this document:</t>
 
-      <t>Dan Wing Email: dwing-ietf@fuggles.com </t>
+      <t>Dan Wing Email: dwing-ietf@fuggles.com</t>
     </section>
 
     <section anchor="security" title="Security Considerations">
