@@ -5,14 +5,14 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                            M. Boucadair
-Expires: June 9, 2017                                             Orange
+Expires: June 10, 2017                                            Orange
                                                             K. Nishizuka
                                                       NTT Communications
                                                                   L. Xia
                                                                   Huawei
                                                                 P. Patil
                                                                    Cisco
-                                                        December 6, 2016
+                                                        December 7, 2016
 
 
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Data Channel
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 9, 2017.
+   This Internet-Draft will expire on June 10, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 1]
+Reddy, et al.             Expires June 10, 2017                 [Page 1]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 2]
+Reddy, et al.             Expires June 10, 2017                 [Page 2]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -165,7 +165,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 3]
+Reddy, et al.             Expires June 10, 2017                 [Page 3]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -221,7 +221,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 4]
+Reddy, et al.             Expires June 10, 2017                 [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -277,7 +277,7 @@ module ietf-dots-data-channel-identifier {
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 5]
+Reddy, et al.             Expires June 10, 2017                 [Page 5]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -333,7 +333,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 6]
+Reddy, et al.             Expires June 10, 2017                 [Page 6]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -389,7 +389,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 7]
+Reddy, et al.             Expires June 10, 2017                 [Page 7]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -445,7 +445,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 8]
+Reddy, et al.             Expires June 10, 2017                 [Page 8]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -501,7 +501,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                  [Page 9]
+Reddy, et al.             Expires June 10, 2017                 [Page 9]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -557,7 +557,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 10]
+Reddy, et al.             Expires June 10, 2017                [Page 10]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -613,7 +613,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 11]
+Reddy, et al.             Expires June 10, 2017                [Page 11]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -669,7 +669,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 12]
+Reddy, et al.             Expires June 10, 2017                [Page 12]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -725,7 +725,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 13]
+Reddy, et al.             Expires June 10, 2017                [Page 13]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -781,7 +781,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 14]
+Reddy, et al.             Expires June 10, 2017                [Page 14]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -837,7 +837,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 15]
+Reddy, et al.             Expires June 10, 2017                [Page 15]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -845,14 +845,13 @@ Internet-Draft              DOTS Data Channel              December 2016
    The DOTS server indicates the result of processing the POST request
    using HTTP response codes.  HTTP 2xx codes are success, HTTP 4xx
    codes are some sort of invalid requests and 5xx codes are returned if
-   the DOTS server has erred or it is incapable of of configuring the
+   the DOTS server has erred or it is incapable of configuring the
    filtering rules.  Response code 201 (Created) will be returned in the
    response if the DOTS server has accepted the filtering rules.  If the
    request is missing one or more mandatory attributes then 400 (Bad
    Request) will be returned in the response or if the request contains
    invalid or unknown parameters then 400 (Invalid query) will be
-   returned in the response.  The HTTP response will include the JSON
-   body received in the request.
+   returned in the response.
 
 3.3.2.  Remove Filtering Rules
 
@@ -893,7 +892,8 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 16]
+
+Reddy, et al.             Expires June 10, 2017                [Page 16]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -949,7 +949,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 17]
+Reddy, et al.             Expires June 10, 2017                [Page 17]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1005,7 +1005,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 18]
+Reddy, et al.             Expires June 10, 2017                [Page 18]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1061,7 +1061,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 19]
+Reddy, et al.             Expires June 10, 2017                [Page 19]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires June 9, 2017                 [Page 20]
+Reddy, et al.             Expires June 10, 2017                [Page 20]

@@ -732,14 +732,13 @@ Content-Format: "application/yang.api+json"
           <t>The DOTS server indicates the result of processing the POST
           request using HTTP response codes. HTTP 2xx codes are success, HTTP
           4xx codes are some sort of invalid requests and 5xx codes are
-          returned if the DOTS server has erred or it is incapable of of
+          returned if the DOTS server has erred or it is incapable of
           configuring the filtering rules. Response code 201 (Created) will be
           returned in the response if the DOTS server has accepted the
           filtering rules. If the request is missing one or more mandatory
           attributes then 400 (Bad Request) will be returned in the response
           or if the request contains invalid or unknown parameters then 400
-          (Invalid query) will be returned in the response. The HTTP response
-          will include the JSON body received in the request.</t>
+          (Invalid query) will be returned in the response.</t>
         </section>
 
         <section title="Remove Filtering Rules">
