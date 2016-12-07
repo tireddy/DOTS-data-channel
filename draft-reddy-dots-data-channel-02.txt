@@ -82,15 +82,15 @@ Table of Contents
      3.3.  Filtering Rules . . . . . . . . . . . . . . . . . . . . .  14
        3.3.1.  Install Filtering Rules . . . . . . . . . . . . . . .  14
        3.3.2.  Remove Filtering Rules  . . . . . . . . . . . . . . .  16
-       3.3.3.  Retrieving Installed Filtering Rules  . . . . . . . .  17
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-   5.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  18
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  20
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+       3.3.3.  Retrieving Installed Filtering Rules  . . . . . . . .  16
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+   5.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -228,7 +228,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    parameters and response information such as errors.  This
    specification uses the encoding rules defined in [RFC7951] for
-   representing DOTS data channel configuration data using YANG
+   representing DOTS data channel configuration data defined using YANG
    (Section 3.1) as JSON text.
 
    All data channel URIs defined in this document, and in subsequent
@@ -370,9 +370,11 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 3.1.3.  Filter Model and structure
 
-   This document uses the YANG ACL [I-D.ietf-netmod-acl-model] data
-   model for the configuration of filtering rules.  Examples of such
-   information include:
+   This document uses the Access Control List (ACL) YANG data model
+   [I-D.ietf-netmod-acl-model] for the configuration of filtering rules.
+   ACL is explained in Section 1 of [I-D.ietf-netmod-acl-model].
+
+   Examples of such configuration include:
 
    o  Black-list management, which enables a DOTS client to inform the
       DOTS server about sources to suppress.
@@ -383,8 +385,6 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    o  Filter management, which enables a DOTS client to install or
       remove traffic filters dropping or rate-limiting unwanted traffic.
-
-
 
 
 
@@ -757,13 +757,13 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 3.3.1.  Install Filtering Rules
 
-   A POST request is used to push filtering rules to a DOTS server
-   (Figure 9).
-
-
-
-
-
+   A POST request is used to push filtering rules to a DOTS server.
+   Figure 9 shows a POST request to block traffic from 10.10.10.1/24,
+   destined to 11.11.11.1/24.  The ACL JSON configuration for the
+   filtering rule is generated using the ACL YANG data model defined in
+   [I-D.ietf-netmod-acl-model] and the ACL configuration XML for the
+   filtering rule is specified in Section 4.3 of
+   [I-D.ietf-netmod-acl-model].
 
 
 
@@ -786,62 +786,6 @@ Reddy, et al.             Expires June 9, 2017                 [Page 14]
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-  POST {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
-  Content-Format: "application/yang.api+json"
-  {
-   "ietf-access-control-list:access-lists": {
-      "acl": [
-          {
-               "acl-name": "string",
-               "acl-type": "string",
-               "access-list-entries": {
-                   "ace": [
-                       {
-                           "rule-name": "string",
-                           "matches": {
-                               "source-ipv4-network": "string",
-                               "destination-ipv4-network": "string"
-                            }
-                        }
-                    ],
-                   "actions": { "string": [null] }
-               }
-           }
-      ]
-   }
-  }
-
-                 Figure 9: POST to install filtering rules
-
-   Some of the header parameters defined in [I-D.ietf-netmod-acl-model]
-   are discussed below:
-
-   acl-name:  The name of access-list.  This is a mandatory attribute.
-
-   acl-type:  Indicates the primary intended type of match criteria
-      (e.g.  IPv4, IPv6).  This is a mandatory attribute.
-
-   protocol:   Internet Protocol numbers.  This is an optional
-      attribute.
-
-   source-ipv4-network:  The source IPv4 prefix.  This is an optional
-      attribute.
-
-   destination-ipv4-network:  The destination IPv4 prefix.  This is an
-      optional attribute.
-
-   actions:   "deny" or "permit".  This is an optional attribute.
-
-   Figure 10 shows a POST request to block traffic from 10.10.10.1/24,
-   destined to 11.11.11.1/24.
-
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 15]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
   POST https://www.example.com/.well-known/v1/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
@@ -860,14 +804,43 @@ Internet-Draft              DOTS Data Channel              December 2016
                             }
                         }
                     ],
-                   "actions": { "deny": [null] }
+                   "actions": {
+                                "deny": [null]
+                              }
                }
            }
       ]
    }
   }
 
-                 Figure 10: POST to Install filterng rules
+                 Figure 9: POST to install filterng rules
+
+   The header parameters defined in [I-D.ietf-netmod-acl-model] are
+   discussed below:
+
+   acl-name:  The name of access-list.  This is a mandatory attribute.
+
+   acl-type:  Indicates the primary intended type of match criteria
+      (e.g.  IPv4, IPv6).  This is a mandatory attribute.
+
+   protocol:   Internet Protocol numbers.  This is an optional
+      attribute.
+
+   source-ipv4-network:  The source IPv4 prefix.  This is an optional
+      attribute.
+
+   destination-ipv4-network:  The destination IPv4 prefix.  This is an
+      optional attribute.
+
+   actions:   "deny" or "permit".  This is an optional attribute.
+
+
+
+
+Reddy, et al.             Expires June 9, 2017                 [Page 15]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
 
    The DOTS server indicates the result of processing the POST request
    using HTTP response codes.  HTTP 2xx codes are success, HTTP 4xx
@@ -884,19 +857,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 3.3.2.  Remove Filtering Rules
 
    A DELETE request is used to delete filtering rules from a DOTS server
-   (Figure 11).
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 16]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
+   (Figure 10).
 
   DELETE {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
@@ -911,7 +872,7 @@ Internet-Draft              DOTS Data Channel              December 2016
     }
   }
 
-              Figure 11: DELETE to remove the filtering rules
+              Figure 10: DELETE to remove the filtering rules
 
    If the DOTS server does not find the policy number conveyed in the
    DELETE request in its policy state data, then it responds with a 404
@@ -926,33 +887,20 @@ Internet-Draft              DOTS Data Channel              December 2016
    counters for installed filtering rules.  A GET request is used to
    retrieve filtering rules from a DOTS server.
 
-   Figure 12 shows how to retrieve all the filtering rules programmed by
-   the DOTS client while Figure 13 shows how to retrieve specific
+   Figure 11 shows how to retrieve all the filtering rules programmed by
+   the DOTS client while Figure 12 shows how to retrieve specific
    filtering rules programmed by the DOTS client.
 
-  GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
-
-            Figure 12: GET to retrieve the filtering rules (1)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 17]
+Reddy, et al.             Expires June 9, 2017                 [Page 16]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
+
+  GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
+
+            Figure 11: GET to retrieve the filtering rules (1)
 
   GET {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
@@ -967,7 +915,7 @@ Internet-Draft              DOTS Data Channel              December 2016
     }
   }
 
-            Figure 13: GET to retrieve the filtering rules (2)
+            Figure 12: GET to retrieve the filtering rules (2)
 
    If the DOTS server does not find the policy number conveyed in the
    GET request in its policy state data, then it responds with a 404
@@ -997,19 +945,20 @@ Internet-Draft              DOTS Data Channel              December 2016
    confidentiality protection and the guidance given in [RFC7525] MUST
    be followed to avoid attacks on TLS.
 
+
+
+
+
+Reddy, et al.             Expires June 9, 2017                 [Page 17]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
    An attacker may be able to inject RST packets, bogus application
    segments, etc., regardless of whether TLS authentication is used.
    Because the application data is TLS protected, this will not result
    in the application receiving bogus data, but it will constitute a DoS
    on the connection.  This attack can be countered by using TCP-AO
-
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 18]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
    [RFC5925].  If TCP-AO is used, then any bogus packets injected by an
    attacker will be rejected by the TCP-AO integrity check and therefore
    will never reach the TLS layer.
@@ -1053,18 +1002,18 @@ Internet-Draft              DOTS Data Channel              December 2016
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+Reddy, et al.             Expires June 9, 2017                 [Page 18]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
-
-
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 19]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
 
    [RFC5925]  Touch, J., Mankin, A., and R. Bonica, "The TCP
               Authentication Option", RFC 5925, DOI 10.17487/RFC5925,
@@ -1110,17 +1059,16 @@ Internet-Draft              DOTS Data Channel              December 2016
               DOI 10.17487/RFC6020, October 2010,
               <http://www.rfc-editor.org/info/rfc6020>.
 
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <http://www.rfc-editor.org/info/rfc7159>.
 
 
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 20]
+Reddy, et al.             Expires June 9, 2017                 [Page 19]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
+
+   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
+              2014, <http://www.rfc-editor.org/info/rfc7159>.
 
 Authors' Addresses
 
@@ -1169,8 +1117,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Reddy, et al.             Expires June 9, 2017                 [Page 21]
+Reddy, et al.             Expires June 9, 2017                 [Page 20]

@@ -248,8 +248,8 @@
       convey request parameters and response information such as errors. This
       specification uses the encoding rules defined in <xref
       target="RFC7951"></xref> for representing DOTS data channel
-      configuration data using YANG (<xref target="YANG"></xref>) as JSON
-      text.</t>
+      configuration data defined using YANG (<xref target="YANG"></xref>) as
+      JSON text.</t>
 
       <t>All data channel URIs defined in this document, and in subsequent
       documents, MUST NOT have a URI containing "/DOTS-signal".</t>
@@ -378,10 +378,12 @@ module ietf-dots-data-channel-identifier {
         </section>
 
         <section title="Filter Model and structure">
-          <t>This document uses the YANG ACL <xref
-          target="I-D.ietf-netmod-acl-model"></xref> data model for the
-          configuration of filtering rules. Examples of such information
-          include:</t>
+          <t>This document uses the Access Control List (ACL) YANG data model
+          <xref target="I-D.ietf-netmod-acl-model"></xref> for the
+          configuration of filtering rules. ACL is explained in Section 1 of
+          <xref target="I-D.ietf-netmod-acl-model"></xref>. </t>
+
+          <t>Examples of such configuration include:</t>
 
           <t><list style="symbols">
               <t>Black-list management, which enables a DOTS client to inform
@@ -663,38 +665,47 @@ Content-Format: "application/yang.api+json"
         filtering rules on a DOTS server.</t>
 
         <section title="Install Filtering Rules">
-          <t>A POST request is used to push filtering rules to a DOTS server
-          (<xref target="Figure7"></xref>).</t>
+          <t>A POST request is used to push filtering rules to a DOTS server.
+          <xref target="Figure7"></xref> shows a POST request to block traffic
+          from 10.10.10.1/24, destined to 11.11.11.1/24. The ACL JSON
+          configuration for the filtering rule is generated using the ACL YANG
+          data model defined in <xref
+          target="I-D.ietf-netmod-acl-model"></xref> and the ACL configuration
+          XML for the filtering rule is specified in Section 4.3 of <xref
+          target="I-D.ietf-netmod-acl-model"></xref>. </t>
 
-          <t><figure anchor="Figure7" title="POST to install filtering rules">
-              <artwork align="left"><![CDATA[  POST {scheme}://{host}:{port}/.well-known/{version}/DOTS-data-channel/filter
+          <t><figure anchor="Figure7" title="POST to install filterng rules">
+              <artwork align="left"><![CDATA[  
+  POST https://www.example.com/.well-known/v1/DOTS-data-channel/filter
   Content-Format: "application/yang.api+json"
   {
    "ietf-access-control-list:access-lists": {
       "acl": [
           { 
-               "acl-name": "string",
-               "acl-type": "string",
+               "acl-name": "sample-ipv4-acl",
+               "acl-type": "ipv4",
                "access-list-entries": {
                    "ace": [
                        {
-                           "rule-name": "string",
+                           "rule-name": "rule1",
                            "matches": {
-                               "source-ipv4-network": "string",
-                               "destination-ipv4-network": "string"
+                               "source-ipv4-network": "10.10.10.1/24",
+                               "destination-ipv4-network": "11.11.11.1/24"
                             }
                         }
                     ],
-                   "actions": { "string": [null] }
+                   "actions": { 
+                                "deny": [null] 
+                              }
                }
            }   
       ]
    }
-  } 
+  }
 ]]></artwork>
             </figure></t>
 
-          <t>Some of the header parameters defined in <xref
+          <t>The header parameters defined in <xref
           target="I-D.ietf-netmod-acl-model"></xref> are discussed below:</t>
 
           <t><list style="hanging">
@@ -717,38 +728,6 @@ Content-Format: "application/yang.api+json"
               <t hangText="actions: ">"deny" or "permit". This is an optional
               attribute.</t>
             </list></t>
-
-          <t><xref target="Figure8"></xref> shows a POST request to block
-          traffic from 10.10.10.1/24, destined to 11.11.11.1/24.</t>
-
-          <t><figure anchor="Figure8" title="POST to Install filterng rules">
-              <artwork align="left"><![CDATA[  
-  POST https://www.example.com/.well-known/v1/DOTS-data-channel/filter
-  Content-Format: "application/yang.api+json"
-  {
-   "ietf-access-control-list:access-lists": {
-      "acl": [
-          { 
-               "acl-name": "sample-ipv4-acl",
-               "acl-type": "ipv4",
-               "access-list-entries": {
-                   "ace": [
-                       {
-                           "rule-name": "rule1",
-                           "matches": {
-                               "source-ipv4-network": "10.10.10.1/24",
-                               "destination-ipv4-network": "11.11.11.1/24"
-                            }
-                        }
-                    ],
-                   "actions": { "deny": [null] }
-               }
-           }   
-      ]
-   }
-  }
-]]></artwork>
-            </figure></t>
 
           <t>The DOTS server indicates the result of processing the POST
           request using HTTP response codes. HTTP 2xx codes are success, HTTP
