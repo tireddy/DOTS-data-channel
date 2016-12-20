@@ -230,8 +230,14 @@
       edit operations allow the DOTS data channel running configuration to be
       altered by a DOTS client. DOTS data channel configuration data can be
       retrieved with the GET method. HTTP status codes are used to report
-      success or failure for RESTCONF operations. The root resource in the
-      DOTS data channel is "/restconf/data/{version}/DOTS-data-channel/".</t>
+      success or failure for RESTCONF operations. The DOTS client will perform
+      the root resource discovery procedure discussed in Section 3.1 of <xref
+      target="I-D.ietf-netconf-restconf"></xref> to determine the root of the
+      RESTCONF API. After discovering the RESTCONF API root, the DOTS client
+      MUST use this value as the initial part of the path in the request URI,
+      in any subsequent request to the DOTS server. The DOTS server can
+      optionally support retrieval of the YANG modules it supports (Section
+      3.7 in <xref target="I-D.ietf-netconf-restconf"></xref>).</t>
 
       <t><figure anchor="fig_dots2"
           title="Abstract Layering of DOTS data channel over RESTCONF over TLS">
@@ -416,7 +422,7 @@ module ietf-dots-data-channel-identifier {
           (<xref target="Figure1"></xref>).</t>
 
           <t><figure anchor="Figure1" title="POST to create identifiers">
-              <artwork align="left"><![CDATA[ POST /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+              <artwork align="left"><![CDATA[ POST /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
  Host: {host}:{port}
  Content-Format: "application/yang.api+json"
  {
@@ -506,7 +512,7 @@ module ietf-dots-data-channel-identifier {
           2002:db8:6401::1 and 2002:db8:6401::2 listening on port 443.</t>
 
           <t><figure anchor="Figure2" title="POST to create identifiers">
-              <artwork align="left"><![CDATA[POST /restconf/data/v1/DOTS-data-channel/id HTTP/1.1
+              <artwork align="left"><![CDATA[POST /restconf/data/v1/DOTS-data-channel/identifier HTTP/1.1
 Host: www.example.com
 Content-Format: "application/yang.api+json"
 {
@@ -552,7 +558,7 @@ Content-Format: "application/yang.api+json"
           DOTS server (<xref target="Figure3"></xref>).</t>
 
           <figure anchor="Figure3" title="DELETE identifier">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
   Host: {host}:{port}
   Content-Format: "application/yang.api+json"
   {
@@ -581,14 +587,14 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure4"
                   title="GET to retrieve all the installed identifiers">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json]]></artwork>
           </figure>
 
           <figure anchor="Figure5"
                   title="GET to retrieve the specific identifier">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json
   Content-Format: "application/yang.api+json"
@@ -689,7 +695,7 @@ Content-Format: "application/yang.api+json"
 
           <t><figure anchor="Figure7" title="POST to install filterng rules">
               <artwork align="left"><![CDATA[  
-  POST /restconf/data/v1/DOTS-data-channel/filter
+  POST /restconf/data/v1/DOTS-data-channel/access-lists
   Host: www.example.com
   Content-Format: "application/yang.api+json"
   {
@@ -761,7 +767,7 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure9"
                   title="DELETE to remove the filtering rules">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/filter
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/access-lists
   Host: {host}:{port}
   Content-Format: "application/yang.api+json"
   {
@@ -797,7 +803,7 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure10"
                   title="GET to retrieve the filtering rules (1)">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/filter
+            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/access-lists
   Host: {host}:{port}
   Accept: application/yang-data+json
 ]]></artwork>
@@ -805,7 +811,7 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure11"
                   title="GET to retrieve the filtering rules (2)">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/filter
+            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/access-lists
   Host: {host}:{port}
   Accept: application/yang-data+json
   Content-Format: "application/yang.api+json"

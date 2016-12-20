@@ -5,14 +5,14 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                            M. Boucadair
-Expires: June 14, 2017                                            Orange
+Expires: June 22, 2017                                            Orange
                                                             K. Nishizuka
                                                       NTT Communications
                                                                   L. Xia
                                                                   Huawei
                                                                 P. Patil
                                                                    Cisco
-                                                       December 11, 2016
+                                                       December 19, 2016
 
 
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Data Channel
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 14, 2017.
+   This Internet-Draft will expire on June 22, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 1]
+Reddy, et al.             Expires June 22, 2017                 [Page 1]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 2]
+Reddy, et al.             Expires June 22, 2017                 [Page 2]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -165,7 +165,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 3]
+Reddy, et al.             Expires June 22, 2017                 [Page 3]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -204,8 +204,14 @@ Internet-Draft              DOTS Data Channel              December 2016
    running configuration to be altered by a DOTS client.  DOTS data
    channel configuration data can be retrieved with the GET method.
    HTTP status codes are used to report success or failure for RESTCONF
-   operations.  The root resource in the DOTS data channel is
-   "/restconf/data/{version}/DOTS-data-channel/".
+   operations.  The DOTS client will perform the root resource discovery
+   procedure discussed in Section 3.1 of [I-D.ietf-netconf-restconf] to
+   determine the root of the RESTCONF API.  After discovering the
+   RESTCONF API root, the DOTS client MUST use this value as the initial
+   part of the path in the request URI, in any subsequent request to the
+   DOTS server.  The DOTS server can optionally support retrieval of the
+   YANG modules it supports (Section 3.7 in
+   [I-D.ietf-netconf-restconf]).
 
 
 
@@ -215,13 +221,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-
-
-
-
-
-
-Reddy, et al.             Expires June 14, 2017                 [Page 4]
+Reddy, et al.             Expires June 22, 2017                 [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -277,7 +277,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 5]
+Reddy, et al.             Expires June 22, 2017                 [Page 5]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -333,7 +333,7 @@ module ietf-dots-data-channel-identifier {
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 6]
+Reddy, et al.             Expires June 22, 2017                 [Page 6]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -389,7 +389,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 7]
+Reddy, et al.             Expires June 22, 2017                 [Page 7]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -445,12 +445,12 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 8]
+Reddy, et al.             Expires June 22, 2017                 [Page 8]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-    POST /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+    POST /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
     Host: {host}:{port}
     Content-Format: "application/yang.api+json"
     {
@@ -501,7 +501,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                 [Page 9]
+Reddy, et al.             Expires June 22, 2017                 [Page 9]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -557,12 +557,12 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 10]
+Reddy, et al.             Expires June 22, 2017                [Page 10]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-   POST /restconf/data/v1/DOTS-data-channel/id HTTP/1.1
+   POST /restconf/data/v1/DOTS-data-channel/identifier HTTP/1.1
    Host: www.example.com
    Content-Format: "application/yang.api+json"
    {
@@ -613,19 +613,19 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 11]
+Reddy, et al.             Expires June 22, 2017                [Page 11]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-     DELETE /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
-     Host: {host}:{port}
-     Content-Format: "application/yang.api+json"
-     {
-       "ietf-dots-data-channel-identifier:identifier": {
-       "policy-id": integer
-      }
-     }
+   DELETE /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
+   Host: {host}:{port}
+   Content-Format: "application/yang.api+json"
+   {
+     "ietf-dots-data-channel-identifier:identifier": {
+     "policy-id": integer
+    }
+   }
 
                         Figure 5: DELETE identifier
 
@@ -644,13 +644,13 @@ Internet-Draft              DOTS Data Channel              December 2016
    instantiated by the DOTS client while Figure 7 shows how to retrieve
    a specific identifier.
 
-     GET /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+     GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
      Host: {host}:{port}
      Accept: application/yang-data+json
 
           Figure 6: GET to retrieve all the installed identifiers
 
-     GET /restconf/data/{version}/DOTS-data-channel/id HTTP/1.1
+     GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
      Host: {host}:{port}
      Accept: application/yang-data+json
      Content-Format: "application/yang.api+json"
@@ -669,7 +669,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 12]
+Reddy, et al.             Expires June 22, 2017                [Page 12]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -725,7 +725,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 13]
+Reddy, et al.             Expires June 22, 2017                [Page 13]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -781,12 +781,12 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 14]
+Reddy, et al.             Expires June 22, 2017                [Page 14]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-  POST /restconf/data/v1/DOTS-data-channel/filter
+  POST /restconf/data/v1/DOTS-data-channel/access-lists
   Host: www.example.com
   Content-Format: "application/yang.api+json"
   {
@@ -837,7 +837,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 15]
+Reddy, et al.             Expires June 22, 2017                [Page 15]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -858,7 +858,7 @@ Internet-Draft              DOTS Data Channel              December 2016
    A DELETE request is used to delete filtering rules from a DOTS server
    (Figure 10).
 
-     DELETE /restconf/data/{version}/DOTS-data-channel/filter
+     DELETE /restconf/data/{version}/DOTS-data-channel/access-lists
      Host: {host}:{port}
      Content-Format: "application/yang.api+json"
      {
@@ -893,18 +893,18 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 16]
+Reddy, et al.             Expires June 22, 2017                [Page 16]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-     GET /restconf/data/{version}/DOTS-data-channel/filter
+     GET /restconf/data/{version}/DOTS-data-channel/access-lists
      Host: {host}:{port}
      Accept: application/yang-data+json
 
             Figure 11: GET to retrieve the filtering rules (1)
 
-     GET /restconf/data/{version}/DOTS-data-channel/filter
+     GET /restconf/data/{version}/DOTS-data-channel/access-lists
      Host: {host}:{port}
      Accept: application/yang-data+json
      Content-Format: "application/yang.api+json"
@@ -949,7 +949,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 17]
+Reddy, et al.             Expires June 22, 2017                [Page 17]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1005,7 +1005,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 18]
+Reddy, et al.             Expires June 22, 2017                [Page 18]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1049,10 +1049,10 @@ Internet-Draft              DOTS Data Channel              December 2016
               2016.
 
    [I-D.reddy-dots-signal-channel]
-              Reddy, T., Boucadair, M., Patil, P., and D. Wing,
-              "Distributed Denial-of-Service Open Threat Signaling
-              (DOTS) Signal Channel", draft-reddy-dots-signal-channel-05
-              (work in progress), December 2016.
+              Reddy, T., Boucadair, M., and P. Patil, "Distributed
+              Denial-of-Service Open Threat Signaling (DOTS) Signal
+              Channel", draft-reddy-dots-signal-channel-06 (work in
+              progress), December 2016.
 
    [RFC4632]  Fuller, V. and T. Li, "Classless Inter-domain Routing
               (CIDR): The Internet Address Assignment and Aggregation
@@ -1061,7 +1061,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 19]
+Reddy, et al.             Expires June 22, 2017                [Page 19]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1117,7 +1117,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 20]
+Reddy, et al.             Expires June 22, 2017                [Page 20]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1173,4 +1173,4 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 14, 2017                [Page 21]
+Reddy, et al.             Expires June 22, 2017                [Page 21]
