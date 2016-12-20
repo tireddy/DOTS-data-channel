@@ -619,7 +619,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
      DELETE /restconf/data/ietf-dots-data-channel-identifier/identifier\
-           /policy-id=123321333242 HTTP/1.1
+            /policy-id=123321333242 HTTP/1.1
      Host: {host}:{port}
 
                         Figure 5: DELETE identifier
@@ -859,7 +859,7 @@ Internet-Draft              DOTS Data Channel              December 2016
    (Figure 9).
 
    DELETE /restconf/data/ietf-access-control-list/access-lists/acl-name\
-          =sample-ipv4-acl&acl-type=ipv4
+          =sample-ipv4-acl&acl-type=ipv4 HTTP/1.1
    Host: {host}:{port}
 
               Figure 9: DELETE to remove the filtering rules
@@ -879,9 +879,9 @@ Internet-Draft              DOTS Data Channel              December 2016
    retrieve all the filtering rules programmed by the DOTS client and
    the number of matches for the installed filtering rules.
 
-    GET /restconf/data/ietf-access-control-list/access-lists?content=all
-    Host: {host}:{port}
-    Accept: application/yang-data+json
+  GET /restconf/data/ietf-access-control-list/access-lists?content=all HTTP/1.1
+  Host: {host}:{port}
+  Accept: application/yang-data+json
 
    Figure 10: GET to retrieve the configuration data and state data for
                             the filtering rules
