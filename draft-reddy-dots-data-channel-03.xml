@@ -422,7 +422,7 @@ module ietf-dots-data-channel-identifier {
           (<xref target="Figure1"></xref>).</t>
 
           <t><figure anchor="Figure1" title="POST to create identifiers">
-              <artwork align="left"><![CDATA[ POST /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
+              <artwork align="left"><![CDATA[ POST /restconf/data/ietf-dots-data-channel-identifier HTTP/1.1
  Host: {host}:{port}
  Content-Format: "application/yang.api+json"
  {
@@ -512,7 +512,7 @@ module ietf-dots-data-channel-identifier {
           2002:db8:6401::1 and 2002:db8:6401::2 listening on port 443.</t>
 
           <t><figure anchor="Figure2" title="POST to create identifiers">
-              <artwork align="left"><![CDATA[POST /restconf/data/v1/DOTS-data-channel/identifier HTTP/1.1
+              <artwork align="left"><![CDATA[POST /restconf/data/ietf-dots-data-channel-identifier HTTP/1.1
 Host: www.example.com
 Content-Format: "application/yang.api+json"
 {
@@ -558,8 +558,8 @@ Content-Format: "application/yang.api+json"
           DOTS server (<xref target="Figure3"></xref>).</t>
 
           <figure anchor="Figure3" title="DELETE identifier">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/identifier/policy-id\
-         =123321333242 HTTP/1.1
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/ietf-dots-data-channel-identifier/identifier\
+        /policy-id=123321333242 HTTP/1.1
   Host: {host}:{port}
 ]]></artwork>
           </figure>
@@ -576,11 +576,11 @@ Content-Format: "application/yang.api+json"
           identifiers from a DOTS server (Section 3.3.1 in <xref
           target="I-D.ietf-netconf-restconf"></xref>). <xref
           target="Figure4"></xref> shows how to retrieve all the identifiers
-          that were instantiated by the DOTS client. </t>
+          that were instantiated by the DOTS client.</t>
 
           <figure anchor="Figure4"
                   title="GET to retrieve all the installed identifiers">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/identifier?\
+            <artwork align="left"><![CDATA[  GET /restconf/data/ietf-dots-data-channel-identifier/identifier?\
       content=config HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json]]></artwork>
@@ -675,7 +675,7 @@ Content-Format: "application/yang.api+json"
 
           <t><figure anchor="Figure7" title="POST to install filterng rules">
               <artwork align="left"><![CDATA[  
-  POST /restconf/data/v1/DOTS-data-channel/access-lists
+  POST /restconf/data/ietf-access-control-list HTTP/1.1
   Host: www.example.com
   Content-Format: "application/yang.api+json"
   {
@@ -747,7 +747,7 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure9"
                   title="DELETE to remove the filtering rules">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/access-lists/acl-name\
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/ietf-access-control-list/access-lists/acl-name\
          =sample-ipv4-acl&acl-type=ipv4
   Host: {host}:{port}
 ]]></artwork>
@@ -767,11 +767,11 @@ Content-Format: "application/yang.api+json"
           retrieve filtering rules from a DOTS server. <xref
           target="Figure10"></xref> shows how to retrieve all the filtering
           rules programmed by the DOTS client and the number of matches for
-          the installed filtering rules. </t>
+          the installed filtering rules.</t>
 
           <figure anchor="Figure10"
                   title="GET to retrieve the configuration data and state data for the filtering rules">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/access-lists?content=all
+            <artwork align="left"><![CDATA[  GET /restconf/data/ietf-access-control-list/access-lists?content=all
   Host: {host}:{port}
   Accept: application/yang-data+json
 ]]></artwork>

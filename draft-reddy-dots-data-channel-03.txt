@@ -450,7 +450,7 @@ Reddy, et al.             Expires June 23, 2017                 [Page 8]
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-    POST /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
+    POST /restconf/data/ietf-dots-data-channel-identifier HTTP/1.1
     Host: {host}:{port}
     Content-Format: "application/yang.api+json"
     {
@@ -562,7 +562,7 @@ Reddy, et al.             Expires June 23, 2017                [Page 10]
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-   POST /restconf/data/v1/DOTS-data-channel/identifier HTTP/1.1
+   POST /restconf/data/ietf-dots-data-channel-identifier HTTP/1.1
    Host: www.example.com
    Content-Format: "application/yang.api+json"
    {
@@ -618,9 +618,9 @@ Reddy, et al.             Expires June 23, 2017                [Page 11]
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-  DELETE /restconf/data/{version}/DOTS-data-channel/identifier/policy-id\
-         =123321333242 HTTP/1.1
-  Host: {host}:{port}
+     DELETE /restconf/data/ietf-dots-data-channel-identifier/identifier\
+           /policy-id=123321333242 HTTP/1.1
+     Host: {host}:{port}
 
                         Figure 5: DELETE identifier
 
@@ -637,7 +637,7 @@ Internet-Draft              DOTS Data Channel              December 2016
    Figure 6 shows how to retrieve all the identifiers that were
    instantiated by the DOTS client.
 
-     GET /restconf/data/{version}/DOTS-data-channel/identifier?\
+     GET /restconf/data/ietf-dots-data-channel-identifier/identifier?\
          content=config HTTP/1.1
      Host: {host}:{port}
      Accept: application/yang-data+json
@@ -786,7 +786,7 @@ Reddy, et al.             Expires June 23, 2017                [Page 14]
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-  POST /restconf/data/v1/DOTS-data-channel/access-lists
+  POST /restconf/data/ietf-access-control-list HTTP/1.1
   Host: www.example.com
   Content-Format: "application/yang.api+json"
   {
@@ -858,9 +858,9 @@ Internet-Draft              DOTS Data Channel              December 2016
    A DELETE request is used to delete filtering rules from a DOTS server
    (Figure 9).
 
-  DELETE /restconf/data/{version}/DOTS-data-channel/access-lists/acl-name\
-         =sample-ipv4-acl&acl-type=ipv4
-  Host: {host}:{port}
+   DELETE /restconf/data/ietf-access-control-list/access-lists/acl-name\
+          =sample-ipv4-acl&acl-type=ipv4
+   Host: {host}:{port}
 
               Figure 9: DELETE to remove the filtering rules
 
@@ -879,9 +879,9 @@ Internet-Draft              DOTS Data Channel              December 2016
    retrieve all the filtering rules programmed by the DOTS client and
    the number of matches for the installed filtering rules.
 
-  GET /restconf/data/{version}/DOTS-data-channel/access-lists?content=all
-  Host: {host}:{port}
-  Accept: application/yang-data+json
+    GET /restconf/data/ietf-access-control-list/access-lists?content=all
+    Host: {host}:{port}
+    Accept: application/yang-data+json
 
    Figure 10: GET to retrieve the configuration data and state data for
                             the filtering rules
