@@ -264,9 +264,6 @@
       configuration data defined using YANG (<xref target="YANG"></xref>) as
       JSON text.</t>
 
-      <t>All data channel URIs defined in this document, and in subsequent
-      documents, MUST NOT have a URI containing "/DOTS-signal".</t>
-
       <t>A DOTS client registers itself to its DOTS server(s) in order to set
       up DOTS related configuration and policy information exchange between
       the two DOTS agents. A single DOTS data channel between DOTS agents can

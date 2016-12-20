@@ -249,9 +249,6 @@ Internet-Draft              DOTS Data Channel              December 2016
    representing DOTS data channel configuration data defined using YANG
    (Section 3.1) as JSON text.
 
-   All data channel URIs defined in this document, and in subsequent
-   documents, MUST NOT have a URI containing "/DOTS-signal".
-
    A DOTS client registers itself to its DOTS server(s) in order to set
    up DOTS related configuration and policy information exchange between
    the two DOTS agents.  A single DOTS data channel between DOTS agents
@@ -271,6 +268,9 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    This document defines the YANG module "ietf-dots-data-channel-
    identifier", which has the following structure:
+
+
+
 
 
 
