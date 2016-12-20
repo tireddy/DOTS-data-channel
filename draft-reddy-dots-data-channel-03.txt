@@ -5,14 +5,14 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                            M. Boucadair
-Expires: June 22, 2017                                            Orange
+Expires: June 23, 2017                                            Orange
                                                             K. Nishizuka
                                                       NTT Communications
                                                                   L. Xia
                                                                   Huawei
                                                                 P. Patil
                                                                    Cisco
-                                                       December 19, 2016
+                                                       December 20, 2016
 
 
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Data Channel
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 22, 2017.
+   This Internet-Draft will expire on June 23, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 1]
+Reddy, et al.             Expires June 23, 2017                 [Page 1]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -90,7 +90,7 @@ Table of Contents
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 2]
+Reddy, et al.             Expires June 23, 2017                 [Page 2]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -165,7 +165,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 3]
+Reddy, et al.             Expires June 23, 2017                 [Page 3]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -202,16 +202,16 @@ Internet-Draft              DOTS Data Channel              December 2016
    to edit data resources represented by DOTS data channel YANG data
    models.  These basic edit operations allow the DOTS data channel
    running configuration to be altered by a DOTS client.  DOTS data
-   channel configuration data can be retrieved with the GET method.
-   HTTP status codes are used to report success or failure for RESTCONF
-   operations.  The DOTS client will perform the root resource discovery
-   procedure discussed in Section 3.1 of [I-D.ietf-netconf-restconf] to
-   determine the root of the RESTCONF API.  After discovering the
-   RESTCONF API root, the DOTS client MUST use this value as the initial
-   part of the path in the request URI, in any subsequent request to the
-   DOTS server.  The DOTS server can optionally support retrieval of the
-   YANG modules it supports (Section 3.7 in
-   [I-D.ietf-netconf-restconf]).
+   channel configuration data and state data can be retrieved with the
+   GET method.  HTTP status codes are used to report success or failure
+   for RESTCONF operations.  The DOTS client will perform the root
+   resource discovery procedure discussed in Section 3.1 of
+   [I-D.ietf-netconf-restconf] to determine the root of the RESTCONF
+   API.  After discovering the RESTCONF API root, the DOTS client MUST
+   use this value as the initial part of the path in the request URI, in
+   any subsequent request to the DOTS server.  The DOTS server can
+   optionally support retrieval of the YANG modules it supports
+   (Section 3.7 in [I-D.ietf-netconf-restconf]).
 
 
 
@@ -221,7 +221,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 4]
+Reddy, et al.             Expires June 23, 2017                 [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -277,7 +277,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 5]
+Reddy, et al.             Expires June 23, 2017                 [Page 5]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -333,7 +333,7 @@ module ietf-dots-data-channel-identifier {
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 6]
+Reddy, et al.             Expires June 23, 2017                 [Page 6]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -389,7 +389,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 7]
+Reddy, et al.             Expires June 23, 2017                 [Page 7]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -445,7 +445,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 8]
+Reddy, et al.             Expires June 23, 2017                 [Page 8]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -501,7 +501,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                 [Page 9]
+Reddy, et al.             Expires June 23, 2017                 [Page 9]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -557,7 +557,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 10]
+Reddy, et al.             Expires June 23, 2017                [Page 10]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -613,19 +613,14 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 11]
+Reddy, et al.             Expires June 23, 2017                [Page 11]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-   DELETE /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
-   Host: {host}:{port}
-   Content-Format: "application/yang.api+json"
-   {
-     "ietf-dots-data-channel-identifier:identifier": {
-     "policy-id": integer
-    }
-   }
+  DELETE /restconf/data/{version}/DOTS-data-channel/identifier/policy-id\
+         =123321333242 HTTP/1.1
+  Host: {host}:{port}
 
                         Figure 5: DELETE identifier
 
@@ -638,38 +633,43 @@ Internet-Draft              DOTS Data Channel              December 2016
 3.2.3.  Retrieving Installed Identifiers
 
    A GET request is used to retrieve the set of installed identifiers
-   from a DOTS server.
-
+   from a DOTS server (Section 3.3.1 in [I-D.ietf-netconf-restconf]).
    Figure 6 shows how to retrieve all the identifiers that were
-   instantiated by the DOTS client while Figure 7 shows how to retrieve
-   a specific identifier.
+   instantiated by the DOTS client.
 
-     GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
+     GET /restconf/data/{version}/DOTS-data-channel/identifier?\
+         content=config HTTP/1.1
      Host: {host}:{port}
      Accept: application/yang-data+json
 
           Figure 6: GET to retrieve all the installed identifiers
 
-     GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
-     Host: {host}:{port}
-     Accept: application/yang-data+json
-     Content-Format: "application/yang.api+json"
-     {
-      "ietf-dots-data-channel-identifier:identifier": {
-        "policy-id": integer
-      }
-     }
-
-             Figure 7: GET to retrieve the specific identifier
-
-   Figure 8 shows response for all identifiers on the DOTS server.
+   Figure 7 shows response for all identifiers on the DOTS server.
 
 
 
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires June 23, 2017                [Page 12]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -719,13 +719,13 @@ Internet-Draft              DOTS Data Channel              December 2016
     ]
    }
 
-                          Figure 8: Response body
+                          Figure 7: Response body
 
 
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 13]
+Reddy, et al.             Expires June 23, 2017                [Page 13]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -758,7 +758,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 3.3.1.  Install Filtering Rules
 
    A POST request is used to push filtering rules to a DOTS server.
-   Figure 9 shows a POST request to block traffic from 10.10.10.1/24,
+   Figure 8 shows a POST request to block traffic from 10.10.10.1/24,
    destined to 11.11.11.1/24.  The ACL JSON configuration for the
    filtering rule is generated using the ACL YANG data model defined in
    [I-D.ietf-netmod-acl-model] and the ACL configuration XML for the
@@ -781,7 +781,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 14]
+Reddy, et al.             Expires June 23, 2017                [Page 14]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -803,18 +803,18 @@ Internet-Draft              DOTS Data Channel              December 2016
                                "source-ipv4-network": "10.10.10.1/24",
                                "destination-ipv4-network": "11.11.11.1/24"
                             }
-                        }
-                    ],
-                   "actions": {
+                            "actions": {
                                 "deny": [null]
-                              }
+                            }
+                        }
+                    ]
                }
            }
       ]
    }
   }
 
-                 Figure 9: POST to install filterng rules
+                 Figure 8: POST to install filterng rules
 
    The header parameters defined in [I-D.ietf-netmod-acl-model] are
    discussed below:
@@ -837,7 +837,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 15]
+Reddy, et al.             Expires June 23, 2017                [Page 15]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -856,23 +856,13 @@ Internet-Draft              DOTS Data Channel              December 2016
 3.3.2.  Remove Filtering Rules
 
    A DELETE request is used to delete filtering rules from a DOTS server
-   (Figure 10).
+   (Figure 9).
 
-     DELETE /restconf/data/{version}/DOTS-data-channel/access-lists
-     Host: {host}:{port}
-     Content-Format: "application/yang.api+json"
-     {
-       "ietf-access-control-list:access-lists": {
-         "acl": [
-             {
-                  "acl-name": "string",
-                  "acl-type": "string",
-             }
-         ]
-       }
-     }
+  DELETE /restconf/data/{version}/DOTS-data-channel/access-lists/acl-name\
+         =sample-ipv4-acl&acl-type=ipv4
+  Host: {host}:{port}
 
-              Figure 10: DELETE to remove the filtering rules
+              Figure 9: DELETE to remove the filtering rules
 
    If the DOTS server does not find the policy number conveyed in the
    DELETE request in its policy state data, then it responds with a 404
@@ -885,45 +875,31 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    The DOTS client periodically queries the DOTS server to check the
    counters for installed filtering rules.  A GET request is used to
-   retrieve filtering rules from a DOTS server.
+   retrieve filtering rules from a DOTS server.  Figure 10 shows how to
+   retrieve all the filtering rules programmed by the DOTS client and
+   the number of matches for the installed filtering rules.
 
-   Figure 11 shows how to retrieve all the filtering rules programmed by
-   the DOTS client while Figure 12 shows how to retrieve specific
-   filtering rules programmed by the DOTS client.
+  GET /restconf/data/{version}/DOTS-data-channel/access-lists?content=all
+  Host: {host}:{port}
+  Accept: application/yang-data+json
+
+   Figure 10: GET to retrieve the configuration data and state data for
+                            the filtering rules
+
+   The content parameter and its permitted values are defined in
+   Section 4.8.1 of [I-D.ietf-netconf-restconf].  If the DOTS server
+   does not find the policy number conveyed in the GET request in its
 
 
 
-Reddy, et al.             Expires June 22, 2017                [Page 16]
+
+Reddy, et al.             Expires June 23, 2017                [Page 16]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-     GET /restconf/data/{version}/DOTS-data-channel/access-lists
-     Host: {host}:{port}
-     Accept: application/yang-data+json
-
-            Figure 11: GET to retrieve the filtering rules (1)
-
-     GET /restconf/data/{version}/DOTS-data-channel/access-lists
-     Host: {host}:{port}
-     Accept: application/yang-data+json
-     Content-Format: "application/yang.api+json"
-     {
-       "ietf-access-control-list:access-lists": {
-         "acl": [
-             {
-                  "acl-name": "string",
-                  "acl-type": "string",
-             }
-         ]
-       }
-     }
-
-            Figure 12: GET to retrieve the filtering rules (2)
-
-   If the DOTS server does not find the policy number conveyed in the
-   GET request in its policy state data, then it responds with a 404
-   (Not Found) error response code.
+   policy state data, then it responds with a 404 (Not Found) error
+   response code.
 
 4.  IANA Considerations
 
@@ -946,14 +922,6 @@ Internet-Draft              DOTS Data Channel              December 2016
    message integrity.  TLS based on client certificate MUST be used for
    mutual authentication.  The interaction between the DOTS agents
    requires Transport Layer Security (TLS) with a cipher suite offering
-
-
-
-Reddy, et al.             Expires June 22, 2017                [Page 17]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
    confidentiality protection and the guidance given in [RFC7525] MUST
    be followed to avoid attacks on TLS.
 
@@ -979,6 +947,13 @@ Internet-Draft              DOTS Data Channel              December 2016
    from within the trusted domain if an entity has been corrupted.
    Adequate means to monitor trusted nodes should also be enabled.
 
+
+
+Reddy, et al.             Expires June 23, 2017                [Page 17]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
 7.  Acknowledgements
 
    Thanks to Christian Jacquenet, Roland Dobbins, Andrew Mortensen,
@@ -999,16 +974,6 @@ Internet-Draft              DOTS Data Channel              December 2016
               Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", draft-ietf-netconf-restconf-18 (work in
               progress), October 2016.
-
-
-
-
-
-
-Reddy, et al.             Expires June 22, 2017                [Page 18]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1033,6 +998,17 @@ Internet-Draft              DOTS Data Channel              December 2016
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <http://www.rfc-editor.org/info/rfc7951>.
+
+
+
+
+
+
+
+Reddy, et al.             Expires June 23, 2017                [Page 18]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
 
 8.2.  Informative References
 
@@ -1059,13 +1035,6 @@ Internet-Draft              DOTS Data Channel              December 2016
               Plan", BCP 122, RFC 4632, DOI 10.17487/RFC4632, August
               2006, <http://www.rfc-editor.org/info/rfc4632>.
 
-
-
-Reddy, et al.             Expires June 22, 2017                [Page 19]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
@@ -1085,6 +1054,16 @@ Authors' Addresses
    India
 
    Email: tireddy@cisco.com
+
+
+
+
+
+
+
+Reddy, et al.             Expires June 23, 2017                [Page 19]
+
+Internet-Draft              DOTS Data Channel              December 2016
 
 
    Mohamed Boucadair
@@ -1113,15 +1092,6 @@ Authors' Addresses
    Email: frank.xialiang@huawei.com
 
 
-
-
-
-
-Reddy, et al.             Expires June 22, 2017                [Page 20]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
    Prashanth Patil
    Cisco Systems, Inc.
 
@@ -1147,30 +1117,4 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 22, 2017                [Page 21]
+Reddy, et al.             Expires June 23, 2017                [Page 20]

@@ -228,16 +228,16 @@
       HTTP POST, PUT, PATCH, and DELETE methods are used to edit data
       resources represented by DOTS data channel YANG data models. These basic
       edit operations allow the DOTS data channel running configuration to be
-      altered by a DOTS client. DOTS data channel configuration data can be
-      retrieved with the GET method. HTTP status codes are used to report
-      success or failure for RESTCONF operations. The DOTS client will perform
-      the root resource discovery procedure discussed in Section 3.1 of <xref
-      target="I-D.ietf-netconf-restconf"></xref> to determine the root of the
-      RESTCONF API. After discovering the RESTCONF API root, the DOTS client
-      MUST use this value as the initial part of the path in the request URI,
-      in any subsequent request to the DOTS server. The DOTS server can
-      optionally support retrieval of the YANG modules it supports (Section
-      3.7 in <xref target="I-D.ietf-netconf-restconf"></xref>).</t>
+      altered by a DOTS client. DOTS data channel configuration data and state
+      data can be retrieved with the GET method. HTTP status codes are used to
+      report success or failure for RESTCONF operations. The DOTS client will
+      perform the root resource discovery procedure discussed in Section 3.1
+      of <xref target="I-D.ietf-netconf-restconf"></xref> to determine the
+      root of the RESTCONF API. After discovering the RESTCONF API root, the
+      DOTS client MUST use this value as the initial part of the path in the
+      request URI, in any subsequent request to the DOTS server. The DOTS
+      server can optionally support retrieval of the YANG modules it supports
+      (Section 3.7 in <xref target="I-D.ietf-netconf-restconf"></xref>).</t>
 
       <t><figure anchor="fig_dots2"
           title="Abstract Layering of DOTS data channel over RESTCONF over TLS">
@@ -558,14 +558,9 @@ Content-Format: "application/yang.api+json"
           DOTS server (<xref target="Figure3"></xref>).</t>
 
           <figure anchor="Figure3" title="DELETE identifier">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/identifier/policy-id\
+         =123321333242 HTTP/1.1
   Host: {host}:{port}
-  Content-Format: "application/yang.api+json"
-  {
-    "ietf-dots-data-channel-identifier:identifier": {
-    "policy-id": integer
-   }
-  }
 ]]></artwork>
           </figure>
 
@@ -578,32 +573,17 @@ Content-Format: "application/yang.api+json"
 
         <section title="Retrieving Installed Identifiers">
           <t>A GET request is used to retrieve the set of installed
-          identifiers from a DOTS server.</t>
-
-          <t><xref target="Figure4"></xref> shows how to retrieve all the
-          identifiers that were instantiated by the DOTS client while <xref
-          target="Figure5"></xref> shows how to retrieve a specific
-          identifier.</t>
+          identifiers from a DOTS server (Section 3.3.1 in <xref
+          target="I-D.ietf-netconf-restconf"></xref>). <xref
+          target="Figure4"></xref> shows how to retrieve all the identifiers
+          that were instantiated by the DOTS client. </t>
 
           <figure anchor="Figure4"
                   title="GET to retrieve all the installed identifiers">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
+            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/identifier?\
+      content=config HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json]]></artwork>
-          </figure>
-
-          <figure anchor="Figure5"
-                  title="GET to retrieve the specific identifier">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/identifier HTTP/1.1
-  Host: {host}:{port}
-  Accept: application/yang-data+json
-  Content-Format: "application/yang.api+json"
-  {
-   "ietf-dots-data-channel-identifier:identifier": {
-     "policy-id": integer
-   }
-  }
-  ]]></artwork>
           </figure>
 
           <t><xref target="Figure6"></xref> shows response for all identifiers
@@ -712,11 +692,11 @@ Content-Format: "application/yang.api+json"
                                "source-ipv4-network": "10.10.10.1/24",
                                "destination-ipv4-network": "11.11.11.1/24"
                             }
-                        }
-                    ],
-                   "actions": { 
+                            "actions": { 
                                 "deny": [null] 
-                              }
+                            }
+                        }
+                    ]
                }
            }   
       ]
@@ -767,19 +747,9 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure9"
                   title="DELETE to remove the filtering rules">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/access-lists
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/{version}/DOTS-data-channel/access-lists/acl-name\
+         =sample-ipv4-acl&acl-type=ipv4
   Host: {host}:{port}
-  Content-Format: "application/yang.api+json"
-  {
-    "ietf-access-control-list:access-lists": {
-      "acl": [
-          { 
-               "acl-name": "string",
-               "acl-type": "string",
-          }
-      ]
-    } 
-  }
 ]]></artwork>
           </figure>
 
@@ -794,43 +764,24 @@ Content-Format: "application/yang.api+json"
         <section title="Retrieving Installed Filtering Rules  ">
           <t>The DOTS client periodically queries the DOTS server to check the
           counters for installed filtering rules. A GET request is used to
-          retrieve filtering rules from a DOTS server.</t>
-
-          <t><xref target="Figure10"></xref> shows how to retrieve all the
-          filtering rules programmed by the DOTS client while <xref
-          target="Figure11"></xref> shows how to retrieve specific filtering
-          rules programmed by the DOTS client.</t>
+          retrieve filtering rules from a DOTS server. <xref
+          target="Figure10"></xref> shows how to retrieve all the filtering
+          rules programmed by the DOTS client and the number of matches for
+          the installed filtering rules. </t>
 
           <figure anchor="Figure10"
-                  title="GET to retrieve the filtering rules (1)">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/access-lists
+                  title="GET to retrieve the configuration data and state data for the filtering rules">
+            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/access-lists?content=all
   Host: {host}:{port}
   Accept: application/yang-data+json
 ]]></artwork>
           </figure>
 
-          <figure anchor="Figure11"
-                  title="GET to retrieve the filtering rules (2)">
-            <artwork align="left"><![CDATA[  GET /restconf/data/{version}/DOTS-data-channel/access-lists
-  Host: {host}:{port}
-  Accept: application/yang-data+json
-  Content-Format: "application/yang.api+json"
-  {
-    "ietf-access-control-list:access-lists": {
-      "acl": [
-          { 
-               "acl-name": "string",
-               "acl-type": "string",
-          }
-      ]
-    } 
-  }
-]]></artwork>
-          </figure>
-
-          <t>If the DOTS server does not find the policy number conveyed in
-          the GET request in its policy state data, then it responds with a
-          404 (Not Found) error response code.</t>
+          <t>The content parameter and its permitted values are defined in
+          Section 4.8.1 of <xref target="I-D.ietf-netconf-restconf"></xref>.
+          If the DOTS server does not find the policy number conveyed in the
+          GET request in its policy state data, then it responds with a 404
+          (Not Found) error response code.</t>
         </section>
       </section>
     </section>
