@@ -5,14 +5,14 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                            M. Boucadair
-Expires: June 23, 2017                                            Orange
+Expires: June 25, 2017                                            Orange
                                                             K. Nishizuka
                                                       NTT Communications
                                                                   L. Xia
                                                                   Huawei
                                                                 P. Patil
                                                                    Cisco
-                                                       December 20, 2016
+                                                       December 22, 2016
 
 
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Data Channel
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 23, 2017.
+   This Internet-Draft will expire on June 25, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires June 23, 2017                 [Page 1]
+Reddy, et al.             Expires June 25, 2017                 [Page 1]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires June 23, 2017                 [Page 2]
+Reddy, et al.             Expires June 25, 2017                 [Page 2]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -165,7 +165,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                 [Page 3]
+Reddy, et al.             Expires June 25, 2017                 [Page 3]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -221,7 +221,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                 [Page 4]
+Reddy, et al.             Expires June 25, 2017                 [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -250,11 +250,12 @@ Internet-Draft              DOTS Data Channel              December 2016
    (Section 3.1) as JSON text.
 
    A DOTS client registers itself to its DOTS server(s) in order to set
-   up DOTS related configuration and policy information exchange between
-   the two DOTS agents.  A single DOTS data channel between DOTS agents
-   can be used to exchange multiple requests and multiple responses.  To
-   reduce DOTS client and DOTS server workload, DOTS client SHOULD re-
-   use the TLS session.
+   up DOTS data channel related configuration data on the DOTS server
+   and receive state data (i.e. non-configuration data) from the DOTS
+   server.  A single DOTS data channel between DOTS agents can be used
+   to exchange multiple requests and multiple responses.  To reduce DOTS
+   client and DOTS server workload, DOTS client SHOULD re-use the TLS
+   session.
 
 3.1.  DOTS Data Channel YANG Model
 
@@ -276,15 +277,13 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-
-Reddy, et al.             Expires June 23, 2017                 [Page 5]
+Reddy, et al.             Expires June 25, 2017                 [Page 5]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
    module: ietf-dots-data-channel-identifier
        +--rw identifier
-          +--rw policy-id?   int32
           +--rw alias* [alias-name]
              +--rw alias-name          string
              +--rw ip*                 inet:ip-address
@@ -321,28 +320,24 @@ module ietf-dots-data-channel-identifier {
 
      container identifier {
           description "top level container for identifiers";
-              leaf policy-id {
-                 type int32;
-                 description "policy identifier";
-              }
               list alias {
                    key alias-name;
                    description "list of identifiers";
                    leaf alias-name {
                       type string;
-
-
-
-Reddy, et al.             Expires June 23, 2017                 [Page 6]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
                       description "alias name";
                    }
                    leaf-list ip {
                       type inet:ip-address;
                       description "IP address";
+
+
+
+Reddy, et al.             Expires June 25, 2017                 [Page 6]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
                    }
                    leaf-list prefix {
                       type inet:ip-prefix;
@@ -386,15 +381,18 @@ Internet-Draft              DOTS Data Channel              December 2016
               }
      }
   }
+ <CODE ENDS>
 
 
 
-Reddy, et al.             Expires June 23, 2017                 [Page 7]
+
+
+
+
+Reddy, et al.             Expires June 25, 2017                 [Page 7]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
-
- <CODE ENDS>
 
 3.1.3.  Filter Model and structure
 
@@ -405,7 +403,7 @@ Internet-Draft              DOTS Data Channel              December 2016
    Examples of such configuration include:
 
    o  Black-list management, which enables a DOTS client to inform the
-      DOTS server about sources to suppress.
+      DOTS server about sources from which traffic should be suppressed.
 
    o  White-list management, which enables a DOTS client to inform the
       DOTS server about sources from which traffic should always be
@@ -445,7 +443,9 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                 [Page 8]
+
+
+Reddy, et al.             Expires June 25, 2017                 [Page 8]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -455,7 +455,6 @@ Internet-Draft              DOTS Data Channel              December 2016
     Content-Format: "application/yang.api+json"
     {
      "ietf-dots-data-channel-identifier:identifier": {
-       "policy-id": integer,
        "alias": [
          {
            "alias-name": "string",
@@ -493,26 +492,19 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    The header parameters are described below:
 
-   policy-id:  Identifier of the policy represented using an integer.
-      This identifier MUST be unique for each policy bound to the DOTS
-      client, i.e., the policy-id needs to be unique relative to the
-      active policies with the DOTS server.  This identifier MUST be
-      generated by the client.  This document does not make any
-
-
-
-Reddy, et al.             Expires June 23, 2017                 [Page 9]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
-      assumption about how this identifier is generated.  This is a
-      mandatory attribute.
-
    alias-name:  Name of the alias.  This is a mandatory attribute.
 
    traffic-protocol:   Internet Protocol numbers.  This is an optional
       attribute.
+
+
+
+
+
+Reddy, et al.             Expires June 25, 2017                 [Page 9]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
 
    port-range:   The port range, lower-port for lower port number and
       upper-port for upper port number.  For TCP, UDP, SCTP, or DCCP:
@@ -557,7 +549,15 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 10]
+
+
+
+
+
+
+
+
+Reddy, et al.             Expires June 25, 2017                [Page 10]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -567,7 +567,6 @@ Internet-Draft              DOTS Data Channel              December 2016
    Content-Format: "application/yang.api+json"
    {
      "ietf-dots-data-channel-identifier:identifier": {
-       "policy-id": 123321333242,
        "alias": [
          {
            "alias-name": "Server1",
@@ -606,26 +605,21 @@ Internet-Draft              DOTS Data Channel              December 2016
    A DELETE request is used to delete identifiers maintained by a DOTS
    server (Figure 5).
 
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 23, 2017                [Page 11]
-
-Internet-Draft              DOTS Data Channel              December 2016
-
-
      DELETE /restconf/data/ietf-dots-data-channel-identifier/identifier\
-            /policy-id=123321333242 HTTP/1.1
+            /alias=Server1 HTTP/1.1
      Host: {host}:{port}
 
                         Figure 5: DELETE identifier
 
-   If the DOTS server does not find the policy number conveyed in the
-   DELETE request in its policy state data, then it responds with a 404
+
+
+Reddy, et al.             Expires June 25, 2017                [Page 11]
+
+Internet-Draft              DOTS Data Channel              December 2016
+
+
+   If the DOTS server does not find the alias name conveyed in the
+   DELETE request in its configuration data, then it responds with a 404
    (Not Found) error response code.  The DOTS server successfully
    acknowledges a DOTS client's request to remove the identifier using
    204 (No Content) in the response.
@@ -669,7 +663,13 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 12]
+
+
+
+
+
+
+Reddy, et al.             Expires June 25, 2017                [Page 12]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -677,7 +677,6 @@ Internet-Draft              DOTS Data Channel              December 2016
    {
     "ietf-dots-data-channel-identifier:identifier": [
      {
-      "policy-id": 1234534333242,
        "alias": [
          {
            "alias-name": "Server1",
@@ -697,7 +696,6 @@ Internet-Draft              DOTS Data Channel              December 2016
        ]
      },
      {
-       "policy-id": 1233213344443,
        "alias": [
          {
            "alias-name": "Server2",
@@ -721,18 +719,16 @@ Internet-Draft              DOTS Data Channel              December 2016
 
                           Figure 7: Response body
 
+   If the DOTS server does not find the alias name conveyed in the GET
+   request in its configuration data, then it responds with a 404 (Not
+   Found) error response code.
 
 
 
-
-Reddy, et al.             Expires June 23, 2017                [Page 13]
+Reddy, et al.             Expires June 25, 2017                [Page 13]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
-
-   If the DOTS server does not find the policy number conveyed in the
-   GET request in its policy state data, then it responds with a 4.04
-   (Not Found) error response code.
 
 3.3.  Filtering Rules
 
@@ -781,7 +777,11 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 14]
+
+
+
+
+Reddy, et al.             Expires June 25, 2017                [Page 14]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -837,7 +837,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 15]
+Reddy, et al.             Expires June 25, 2017                [Page 15]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -864,12 +864,12 @@ Internet-Draft              DOTS Data Channel              December 2016
 
               Figure 9: DELETE to remove the filtering rules
 
-   If the DOTS server does not find the policy number conveyed in the
-   DELETE request in its policy state data, then it responds with a 404
-   (Not Found) error response code.  The DOTS server successfully
-   acknowledges a DOTS client's request to withdraw the filtering rules
-   using 204 (No Content) response code, and removes the filtering rules
-   as soon as possible.
+   If the DOTS server does not find the access list name and access list
+   type conveyed in the DELETE request in its configuration data, then
+   it responds with a 404 (Not Found) error response code.  The DOTS
+   server successfully acknowledges a DOTS client's request to withdraw
+   the filtering rules using 204 (No Content) response code, and removes
+   the filtering rules as soon as possible.
 
 3.3.3.  Retrieving Installed Filtering Rules
 
@@ -888,18 +888,18 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    The content parameter and its permitted values are defined in
    Section 4.8.1 of [I-D.ietf-netconf-restconf].  If the DOTS server
-   does not find the policy number conveyed in the GET request in its
+   does not find the access list name and access list type conveyed in
 
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 16]
+Reddy, et al.             Expires June 25, 2017                [Page 16]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-   policy state data, then it responds with a 404 (Not Found) error
-   response code.
+   the GET request in its configuration data, then it responds with a
+   404 (Not Found) error response code.
 
 4.  IANA Considerations
 
@@ -949,7 +949,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 17]
+Reddy, et al.             Expires June 25, 2017                [Page 17]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1005,7 +1005,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 18]
+Reddy, et al.             Expires June 25, 2017                [Page 18]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1061,7 +1061,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 19]
+Reddy, et al.             Expires June 25, 2017                [Page 19]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1117,4 +1117,4 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 23, 2017                [Page 20]
+Reddy, et al.             Expires June 25, 2017                [Page 20]
