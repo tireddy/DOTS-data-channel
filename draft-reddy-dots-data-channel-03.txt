@@ -183,6 +183,15 @@ Internet-Draft              DOTS Data Channel              December 2016
    The reader should be familiar with the terms defined in
    [I-D.ietf-dots-architecture].
 
+   For simplicity, all of the examples in this document use "/restconf"
+   as the discovered RESTCONF API root path.  Many protocol header lines
+   and message-body text within examples throughout the document are
+   split into multiple lines for display purposes only.  When a line
+   ends with backslash ('\') as the last character, the line is wrapped
+   for display purposes.  It is to be considered to be joined to the
+   next line by deleting the backslash, the following line break, and
+   the leading whitespace of the next line.
+
 3.  DOTS Data Channel
 
    The DOTS data channel is intended to be used for bulk data exchanges
@@ -209,15 +218,6 @@ Internet-Draft              DOTS Data Channel              December 2016
    [I-D.ietf-netconf-restconf] to determine the root of the RESTCONF
    API.  After discovering the RESTCONF API root, the DOTS client MUST
    use this value as the initial part of the path in the request URI, in
-   any subsequent request to the DOTS server.  The DOTS server can
-   optionally support retrieval of the YANG modules it supports
-   (Section 3.7 in [I-D.ietf-netconf-restconf]).
-
-
-
-
-
-
 
 
 
@@ -225,6 +225,10 @@ Reddy, et al.             Expires June 25, 2017                 [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
+
+   any subsequent request to the DOTS server.  The DOTS server can
+   optionally support retrieval of the YANG modules it supports
+   (Section 3.7 in [I-D.ietf-netconf-restconf]).
 
                                   +--------------+
                                   |     DOTS     |
@@ -269,10 +273,6 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    This document defines the YANG module "ietf-dots-data-channel-
    identifier", which has the following structure:
-
-
-
-
 
 
 
@@ -618,9 +618,12 @@ Reddy, et al.             Expires June 25, 2017                [Page 11]
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-   If the DOTS server does not find the alias name conveyed in the
-   DELETE request in its configuration data, then it responds with a 404
-   (Not Found) error response code.  The DOTS server successfully
+   A RESTCONF data resource identifier is encoded from left to right,
+   starting with the top-level data node, according to the "api-path"
+   rule defined in Section 3.5.3.1 of [I-D.ietf-netconf-restconf].  If
+   the DOTS server does not find the alias name conveyed in the DELETE
+   request in its configuration data, then it responds with a 404 (Not
+   Found) error response code.  The DOTS server successfully
    acknowledges a DOTS client's request to remove the identifier using
    204 (No Content) in the response.
 
@@ -639,9 +642,6 @@ Internet-Draft              DOTS Data Channel              December 2016
           Figure 6: GET to retrieve all the installed identifiers
 
    Figure 7 shows response for all identifiers on the DOTS server.
-
-
-
 
 
 

@@ -208,6 +208,15 @@
 
       <t>The reader should be familiar with the terms defined in <xref
       target="I-D.ietf-dots-architecture"></xref>.</t>
+
+      <t> For simplicity, all of the examples in this document use "/restconf"
+      as the discovered RESTCONF API root path. Many protocol header lines and
+      message-body text within examples throughout the document are split into
+      multiple lines for display purposes only. When a line ends with
+      backslash ('\') as the last character, the line is wrapped for display
+      purposes. It is to be considered to be joined to the next line by
+      deleting the backslash, the following line break, and the leading
+      whitespace of the next line.</t>
     </section>
 
     <section title="DOTS Data Channel">
@@ -547,11 +556,15 @@ Content-Format: "application/yang.api+json"
 ]]></artwork>
           </figure>
 
-          <t>If the DOTS server does not find the alias name conveyed in the
-          DELETE request in its configuration data, then it responds with a
-          404 (Not Found) error response code. The DOTS server successfully
-          acknowledges a DOTS client's request to remove the identifier using
-          204 (No Content) in the response.</t>
+          <t> A RESTCONF data resource identifier is encoded from left to
+          right, starting with the top-level data node, according to the
+          "api-path" rule defined in Section 3.5.3.1 of <xref
+          target="I-D.ietf-netconf-restconf"></xref>. If the DOTS server does
+          not find the alias name conveyed in the DELETE request in its
+          configuration data, then it responds with a 404 (Not Found) error
+          response code. The DOTS server successfully acknowledges a DOTS
+          client's request to remove the identifier using 204 (No Content) in
+          the response.</t>
         </section>
 
         <section title="Retrieving Installed Identifiers">
