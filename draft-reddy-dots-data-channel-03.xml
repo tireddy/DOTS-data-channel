@@ -275,8 +275,8 @@
 
       <t>A DOTS client registers itself to its DOTS server(s) in order to set
       up DOTS data channel related configuration data on the DOTS server and
-      receive state data (i.e. non-configuration data) from the DOTS server. A
-      single DOTS data channel between DOTS agents can be used to exchange
+      receive state data (i.e., non-configuration data) from the DOTS server.
+      A single DOTS data channel between DOTS agents can be used to exchange
       multiple requests and multiple responses. To reduce DOTS client and DOTS
       server workload, DOTS client SHOULD re-use the TLS session.</t>
 
@@ -550,21 +550,26 @@ Content-Format: "application/yang.api+json"
           DOTS server (<xref target="Figure3"></xref>).</t>
 
           <figure anchor="Figure3" title="DELETE identifier">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/ietf-dots-data-channel-identifier/identifier\
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/ietf-dots-data-channel-identifier:identifier\
          /alias=Server1 HTTP/1.1
   Host: {host}:{port}
 ]]></artwork>
           </figure>
 
-          <t> A RESTCONF data resource identifier is encoded from left to
-          right, starting with the top-level data node, according to the
-          "api-path" rule defined in Section 3.5.3.1 of <xref
-          target="I-D.ietf-netconf-restconf"></xref>. If the DOTS server does
-          not find the alias name conveyed in the DELETE request in its
-          configuration data, then it responds with a 404 (Not Found) error
-          response code. The DOTS server successfully acknowledges a DOTS
-          client's request to remove the identifier using 204 (No Content) in
-          the response.</t>
+          <t>In RESTCONF, URI-encoded path expressions are used. A RESTCONF
+          data resource identifier is encoded from left to right, starting
+          with the top-level data node, according to the "api-path" rule
+          defined in Section 3.5.3.1 of <xref
+          target="I-D.ietf-netconf-restconf"></xref>. The data node in the
+          above path expression is a YANG list node and MUST be encoded
+          according to the rules defined in Section 3.5.1 of <xref
+          target="I-D.ietf-netconf-restconf"></xref>.</t>
+
+          <t>If the DOTS server does not find the alias name conveyed in the
+          DELETE request in its configuration data, then it responds with a
+          404 (Not Found) error response code. The DOTS server successfully
+          acknowledges a DOTS client's request to remove the identifier using
+          204 (No Content) in the response.</t>
         </section>
 
         <section title="Retrieving Installed Identifiers">
@@ -572,11 +577,13 @@ Content-Format: "application/yang.api+json"
           identifiers from a DOTS server (Section 3.3.1 in <xref
           target="I-D.ietf-netconf-restconf"></xref>). <xref
           target="Figure4"></xref> shows how to retrieve all the identifiers
-          that were instantiated by the DOTS client.</t>
+          that were instantiated by the DOTS client. The content parameter and
+          its permitted values are defined in Section 4.8.1 of <xref
+          target="I-D.ietf-netconf-restconf"></xref>.</t>
 
           <figure anchor="Figure4"
                   title="GET to retrieve all the installed identifiers">
-            <artwork align="left"><![CDATA[  GET /restconf/data/ietf-dots-data-channel-identifier/identifier?\
+            <artwork align="left"><![CDATA[  GET /restconf/data/ietf-dots-data-channel-identifier:identifier?\
       content=config HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json]]></artwork>
@@ -685,14 +692,14 @@ Content-Format: "application/yang.api+json"
                            "matches": {
                                "source-ipv4-network": "10.10.10.1/24",
                                "destination-ipv4-network": "11.11.11.1/24"
-                            }
+                            },
                             "actions": { 
                                 "deny": [null] 
                             }
                         }
                     ]
                }
-           }   
+          }   
       ]
    }
   }
@@ -741,7 +748,7 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure9"
                   title="DELETE to remove the filtering rules">
-            <artwork align="left"><![CDATA[  DELETE /restconf/data/ietf-access-control-list/access-lists/acl-name\
+            <artwork align="left"><![CDATA[  DELETE /restconf/data/ietf-access-control-list:access-lists/acl-name\
          =sample-ipv4-acl&acl-type=ipv4 HTTP/1.1
   Host: {host}:{port}
 ]]></artwork>
@@ -765,15 +772,13 @@ Content-Format: "application/yang.api+json"
 
           <figure anchor="Figure10"
                   title="GET to retrieve the configuration data and state data for the filtering rules">
-            <artwork align="left"><![CDATA[  GET /restconf/data/ietf-access-control-list/access-lists?content=all HTTP/1.1
+            <artwork align="left"><![CDATA[  GET /restconf/data/ietf-access-control-list:access-lists?content=all HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json
 ]]></artwork>
           </figure>
 
-          <t>The content parameter and its permitted values are defined in
-          Section 4.8.1 of <xref target="I-D.ietf-netconf-restconf"></xref>.
-          If the DOTS server does not find the access list name and access
+          <t>If the DOTS server does not find the access list name and access
           list type conveyed in the GET request in its configuration data,
           then it responds with a 404 (Not Found) error response code.</t>
         </section>

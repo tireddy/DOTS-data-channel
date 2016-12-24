@@ -5,14 +5,14 @@
 DOTS                                                            T. Reddy
 Internet-Draft                                                     Cisco
 Intended status: Standards Track                            M. Boucadair
-Expires: June 25, 2017                                            Orange
+Expires: June 26, 2017                                            Orange
                                                             K. Nishizuka
                                                       NTT Communications
                                                                   L. Xia
                                                                   Huawei
                                                                 P. Patil
                                                                    Cisco
-                                                       December 22, 2016
+                                                       December 23, 2016
 
 
 Distributed Denial-of-Service Open Threat Signaling (DOTS) Data Channel
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 25, 2017.
+   This Internet-Draft will expire on June 26, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 1]
+Reddy, et al.             Expires June 26, 2017                 [Page 1]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 2]
+Reddy, et al.             Expires June 26, 2017                 [Page 2]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -165,7 +165,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 3]
+Reddy, et al.             Expires June 26, 2017                 [Page 3]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -221,7 +221,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 4]
+Reddy, et al.             Expires June 26, 2017                 [Page 4]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -255,7 +255,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
    A DOTS client registers itself to its DOTS server(s) in order to set
    up DOTS data channel related configuration data on the DOTS server
-   and receive state data (i.e. non-configuration data) from the DOTS
+   and receive state data (i.e., non-configuration data) from the DOTS
    server.  A single DOTS data channel between DOTS agents can be used
    to exchange multiple requests and multiple responses.  To reduce DOTS
    client and DOTS server workload, DOTS client SHOULD re-use the TLS
@@ -277,7 +277,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 5]
+Reddy, et al.             Expires June 26, 2017                 [Page 5]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -333,7 +333,7 @@ module ietf-dots-data-channel-identifier {
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 6]
+Reddy, et al.             Expires June 26, 2017                 [Page 6]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -389,7 +389,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 7]
+Reddy, et al.             Expires June 26, 2017                 [Page 7]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -445,7 +445,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 8]
+Reddy, et al.             Expires June 26, 2017                 [Page 8]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -501,7 +501,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                 [Page 9]
+Reddy, et al.             Expires June 26, 2017                 [Page 9]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -557,7 +557,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 10]
+Reddy, et al.             Expires June 26, 2017                [Page 10]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -605,7 +605,7 @@ Internet-Draft              DOTS Data Channel              December 2016
    A DELETE request is used to delete identifiers maintained by a DOTS
    server (Figure 5).
 
-     DELETE /restconf/data/ietf-dots-data-channel-identifier/identifier\
+     DELETE /restconf/data/ietf-dots-data-channel-identifier:identifier\
             /alias=Server1 HTTP/1.1
      Host: {host}:{port}
 
@@ -613,17 +613,22 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 11]
+Reddy, et al.             Expires June 26, 2017                [Page 11]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
 
-   A RESTCONF data resource identifier is encoded from left to right,
-   starting with the top-level data node, according to the "api-path"
-   rule defined in Section 3.5.3.1 of [I-D.ietf-netconf-restconf].  If
-   the DOTS server does not find the alias name conveyed in the DELETE
-   request in its configuration data, then it responds with a 404 (Not
-   Found) error response code.  The DOTS server successfully
+   In RESTCONF, URI-encoded path expressions are used.  A RESTCONF data
+   resource identifier is encoded from left to right, starting with the
+   top-level data node, according to the "api-path" rule defined in
+   Section 3.5.3.1 of [I-D.ietf-netconf-restconf].  The data node in the
+   above path expression is a YANG list node and MUST be encoded
+   according to the rules defined in Section 3.5.1 of
+   [I-D.ietf-netconf-restconf].
+
+   If the DOTS server does not find the alias name conveyed in the
+   DELETE request in its configuration data, then it responds with a 404
+   (Not Found) error response code.  The DOTS server successfully
    acknowledges a DOTS client's request to remove the identifier using
    204 (No Content) in the response.
 
@@ -632,9 +637,11 @@ Internet-Draft              DOTS Data Channel              December 2016
    A GET request is used to retrieve the set of installed identifiers
    from a DOTS server (Section 3.3.1 in [I-D.ietf-netconf-restconf]).
    Figure 6 shows how to retrieve all the identifiers that were
-   instantiated by the DOTS client.
+   instantiated by the DOTS client.  The content parameter and its
+   permitted values are defined in Section 4.8.1 of
+   [I-D.ietf-netconf-restconf].
 
-     GET /restconf/data/ietf-dots-data-channel-identifier/identifier?\
+     GET /restconf/data/ietf-dots-data-channel-identifier:identifier?\
          content=config HTTP/1.1
      Host: {host}:{port}
      Accept: application/yang-data+json
@@ -662,14 +669,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-
-
-
-
-
-
-
-Reddy, et al.             Expires June 25, 2017                [Page 12]
+Reddy, et al.             Expires June 26, 2017                [Page 12]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -725,7 +725,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 13]
+Reddy, et al.             Expires June 26, 2017                [Page 13]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -781,7 +781,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 14]
+Reddy, et al.             Expires June 26, 2017                [Page 14]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -802,14 +802,14 @@ Internet-Draft              DOTS Data Channel              December 2016
                            "matches": {
                                "source-ipv4-network": "10.10.10.1/24",
                                "destination-ipv4-network": "11.11.11.1/24"
-                            }
+                            },
                             "actions": {
                                 "deny": [null]
                             }
                         }
                     ]
                }
-           }
+          }
       ]
    }
   }
@@ -837,7 +837,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 15]
+Reddy, et al.             Expires June 26, 2017                [Page 15]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -858,7 +858,7 @@ Internet-Draft              DOTS Data Channel              December 2016
    A DELETE request is used to delete filtering rules from a DOTS server
    (Figure 9).
 
-   DELETE /restconf/data/ietf-access-control-list/access-lists/acl-name\
+   DELETE /restconf/data/ietf-access-control-list:access-lists/acl-name\
           =sample-ipv4-acl&acl-type=ipv4 HTTP/1.1
    Host: {host}:{port}
 
@@ -879,27 +879,24 @@ Internet-Draft              DOTS Data Channel              December 2016
    retrieve all the filtering rules programmed by the DOTS client and
    the number of matches for the installed filtering rules.
 
-  GET /restconf/data/ietf-access-control-list/access-lists?content=all HTTP/1.1
+  GET /restconf/data/ietf-access-control-list:access-lists?content=all HTTP/1.1
   Host: {host}:{port}
   Accept: application/yang-data+json
 
    Figure 10: GET to retrieve the configuration data and state data for
                             the filtering rules
 
-   The content parameter and its permitted values are defined in
-   Section 4.8.1 of [I-D.ietf-netconf-restconf].  If the DOTS server
-   does not find the access list name and access list type conveyed in
+   If the DOTS server does not find the access list name and access list
+   type conveyed in the GET request in its configuration data, then it
+   responds with a 404 (Not Found) error response code.
 
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 16]
+Reddy, et al.             Expires June 26, 2017                [Page 16]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
-
-   the GET request in its configuration data, then it responds with a
-   404 (Not Found) error response code.
 
 4.  IANA Considerations
 
@@ -949,7 +946,10 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 17]
+
+
+
+Reddy, et al.             Expires June 26, 2017                [Page 17]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1005,7 +1005,7 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 18]
+Reddy, et al.             Expires June 26, 2017                [Page 18]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1061,7 +1061,7 @@ Authors' Addresses
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 19]
+Reddy, et al.             Expires June 26, 2017                [Page 19]
 
 Internet-Draft              DOTS Data Channel              December 2016
 
@@ -1117,4 +1117,4 @@ Internet-Draft              DOTS Data Channel              December 2016
 
 
 
-Reddy, et al.             Expires June 25, 2017                [Page 20]
+Reddy, et al.             Expires June 26, 2017                [Page 20]
